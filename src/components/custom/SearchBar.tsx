@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Input } from '@/components/ui/input'
-import { Search } from 'lucide-react'
+import { Search, XIcon } from 'lucide-react'
 
 const SearchBar = () => {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -19,30 +19,31 @@ const SearchBar = () => {
   }, [isExpanded])
 
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex items-center justify-end">
       <motion.div
         initial={{ width: 0, opacity: 0 }}
         animate={{ width: isExpanded ? '300px' : '36px', opacity: 1 }}
         exit={{ width: 0, opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="flex items-center overflow-hidden bg-gray-200 rounded-full shadow-md"
+        className="flex items-center overflow-hidden bg-gray-200 rounded-sm shadow-md"
       >
         <Input
           type="text"
           value={keyword}
           ref={inputRef}
           placeholder="Search..."
-          className={`bg-transparent search-bar-input text-black focus-visible:border-0 focus-visible:outline-0 outline-0 border-0 ${isExpanded ? 'flex-1 px-4 py-2' : 'w-0 p-0 border-0'}`}
+          className={`bg-gray-200 search-bar-input text-black focus-visible:border-0 focus-visible:outline-0 outline-0 border-0 ${isExpanded ? 'flex-1 h-full px-4 py-3' : 'w-0 p-0 border-0'}`}
           onBlur={() => setIsExpanded(false)}
+          disabledOutlined
           onChange={(e) => setKeyword(e?.target?.value)}
         />
         {isExpanded ? (
           <motion.button
-            onClick={() => setIsExpanded(false)}
-            className="p-2 text-gray-600 hover:text-gray-800"
+            onClick={() => setKeyword('')}
+            className="p-2 text-gray-600 absolute right-0 hover:text-gray-800"
             whileHover={{ scale: 1.1 }}
           >
-            ✖️
+            <XIcon className='text-red-700'/>
           </motion.button>
         ) : (
           <motion.button
