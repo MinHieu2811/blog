@@ -51,3 +51,22 @@ export default function Home() {
     </div>
   )
 }
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch('/api/list-post')
+    const data = await res.json()
+    return {
+      props: {
+        data
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      props: {
+        error: 'Failed to fetch data'
+      }
+    }
+  }
+}
