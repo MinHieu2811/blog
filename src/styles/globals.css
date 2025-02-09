@@ -90,3 +90,66 @@ input.search-bar-input:focus {
   outline-offset: 0px !important;
   outline: 0px !important;
 }
+/*
+.card {
+  width: 300px;
+  padding: 20px;
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  clip-path: path("M 0 0 H 100 V 70 Q 50 100 0 70 Z");
+} */
+
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.grid-masonry-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive cột */
+  grid-auto-rows: 10px; /* Chiều cao hàng cơ bản */
+  gap: 16px; /* Khoảng cách giữa các item */
+  grid-auto-flow: dense; /* Lấp đầy khoảng trống */
+}
+
+.grid-item {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Ẩn nội dung tràn */
+}
+
+/* Dynamic size adjustment */
+.grid-item > * {
+  text-align: center;
+  overflow-wrap: break-word; /* Tự xuống dòng nếu nội dung dài */
+}
+
+/* Các item lớn hơn có thể chiếm nhiều dòng/cột dựa trên nội dung */
+.grid-item.large {
+  grid-row: span 20; /* Tự động chiếm 20 hàng */
+  grid-column: span 2; /* Tự động chiếm 2 cột */
+}
+
+.grid-item.medium {
+  grid-row: span 10; /* Chiếm 10 hàng */
+  grid-column: span 1;
+}
+
+.grid-item.small {
+  grid-row: span 5; /* Chiếm 5 hàng */
+  grid-column: span 1;
+}
+
+
+
