@@ -90,19 +90,6 @@ input.search-bar-input:focus {
   outline-offset: 0px !important;
   outline: 0px !important;
 }
-/*
-.card {
-  width: 300px;
-  padding: 20px;
-  background-color: #fff;
-  color: #000;
-  font-weight: bold;
-  position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  clip-path: path("M 0 0 H 100 V 70 Q 50 100 0 70 Z");
-} */
-
 /* Base styles */
 body {
   font-family: Arial, sans-serif;
@@ -150,6 +137,57 @@ body {
   grid-row: span 5; /* Chiếm 5 hàng */
   grid-column: span 1;
 }
+
+.toc ul {
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+
+.toc-item-wrapper {
+  position: relative;
+}
+
+.toc-item {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 4px 12px;
+  color: gray;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+  position: relative;
+}
+
+.toc-item::after {
+  content: "";
+  width: 0;
+  height: 2px;
+  background: #0070f3;
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  transition: width 0.3s ease-in-out;
+}
+
+.toc-item:hover::after {
+  width: 100%;
+}
+/* 
+.toc-item.active {
+  font-weight: bold;
+} */
+
+.active-indicator {
+  position: absolute;
+  left: -6px;
+  top: 4px;
+  width: 4px;
+  height: 20px;
+  background: #0070f3;
+  border-radius: 4px;
+}
+
 
 
 
