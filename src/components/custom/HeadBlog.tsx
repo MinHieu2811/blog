@@ -11,7 +11,7 @@ type HeadBlogProps = {
   author?: string
 }
 
-const HeadBlog = ({ className, title, imageCover, wordCount, publishedAt = '', author }: HeadBlogProps) => {
+const HeadBlog = ({ className = '', title, imageCover, wordCount, publishedAt = '', author }: HeadBlogProps) => {
   return (
     <div className={`${className}`}>
       <title className="text-center">{title}</title>
@@ -19,15 +19,15 @@ const HeadBlog = ({ className, title, imageCover, wordCount, publishedAt = '', a
       <div className="flex justify-center items-center">
         {author?.length ? (
           <>
-            <span className="text-sm">{author}</span>
+            <p className="text-sm">{author}</p>
             <Separator orientation="vertical" className="mx-2" />
           </>
         ) : (
           <></>
         )}
-        <span className="text-sm">{wordCount}</span>
+        <p className="text-sm">{wordCount}</p>
         <Separator orientation="vertical" className="mx-2" />
-        <span className="text-sm">{format(publishedAt, 'dd MMM yyyy')}</span>
+        <p className="text-sm">{format(publishedAt, 'dd MMM yyyy')}</p>
       </div>
     </div>
   )

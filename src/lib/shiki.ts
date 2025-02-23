@@ -12,8 +12,6 @@ export async function highlight(code: string, lang: BundledLanguage) {
       theme: 'github-dark'
     })
 
-    console.log(out);
-
     return toJsxRuntime(out, {
       Fragment,
       jsx,

@@ -11,6 +11,7 @@ import { extractHeadings } from '@/utils/extractHeadings'
 import HeadBlog from '@/components/custom/HeadBlog'
 import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
 import { useMemo } from 'react'
+import TableOfContent from '@/components/custom/TableOfContent'
 
 interface BlogPostProps {
   status: number
@@ -36,17 +37,14 @@ const Test = ({ status, mdxSource, frontmatter, headings }: BlogPostProps) => {
         author={frontmatter?.author}
         publishedAt={frontmatter?.date}
       />
-      <nav className="toc">
-        <h2>Table of Contents</h2>
-        <ul>
-          {headings.map((heading, index) => (
-            <li key={index} style={{ marginLeft: `${(heading.level - 1) * 16}px` }}>
-              <a href={`#${heading.text.replace(/\s+/g, '-').toLowerCase()}`}>{heading.text}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <MDXRemote {...mdxSource} components={mdxComponents} />
+      <div className="flex">
+        <div className="flex-1">
+          <MDXRemote {...mdxSource} components={mdxComponents} />
+        </div>
+        <div className="relative">
+          <TableOfContent headings={headings} />
+        </div>
+      </div>
     </article>
   )
 }
@@ -68,13 +66,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const text = (await data?.text()) ?? ''
 
     const { content, data: frontmatter } = matter(text ?? '')
-    const source = 'Some **mdx** text, with a component'
     const mdxSource = await serialize(content ?? '')
     const headings = extractHeadings(content)
     // if (post?.error) return { props: post }
 
     return {
-      props: { source, mdxSource, frontmatter, headings },
+      props: { mdxSource, frontmatter, headings },
       revalidate: 60 // ISR
     }
   } catch (error) {
