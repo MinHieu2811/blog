@@ -45,6 +45,7 @@
         "argsIgnorePattern": "^_.*?$"
       }
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "import/order": [
       "warn",
       {

@@ -24,15 +24,20 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^12.0.5",
     "gray-matter": "^4.0.3",
+    "hast-util-to-jsx-runtime": "^2.3.3",
     "lucide-react": "^0.474.0",
     "next": "15.1.6",
+    "next-mdx-remote": "^5.0.0",
     "prisma": "^6.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "remark": "^15.0.1",
+    "remark-mdx": "^3.1.0",
     "shiki": "^2.3.2",
     "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^0.3.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
