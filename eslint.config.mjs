@@ -7,6 +7,16 @@ const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
+  allConfig: {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off"
+    }
+  },
+  recommendedConfig: {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off"
+    }
+  }
 });
 
 const eslintConfig = [

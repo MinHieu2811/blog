@@ -14,20 +14,20 @@ type HeadBlogProps = {
 const HeadBlog = ({ className = '', title, imageCover, wordCount, publishedAt = '', author }: HeadBlogProps) => {
   return (
     <div className={`${className}`}>
-      <title className="text-center">{title}</title>
+      <h1 className="text-center text-3xl mb-2">{title}</h1>
       {imageCover?.length ? <img src={imageCover} className="object-cover" alt={title} /> : <></>}
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center h-5">
         {author?.length ? (
           <>
-            <p className="text-sm">{author}</p>
+            <div className="text-sm">{author}</div>
             <Separator orientation="vertical" className="mx-2" />
           </>
         ) : (
           <></>
         )}
-        <p className="text-sm">{wordCount}</p>
+        <div className="text-sm">{wordCount}</div>
         <Separator orientation="vertical" className="mx-2" />
-        <p className="text-sm">{format(publishedAt, 'dd MMM yyyy')}</p>
+        <div className="text-sm">{format(publishedAt, 'dd MMM yyyy')}</div>
       </div>
     </div>
   )

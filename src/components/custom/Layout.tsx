@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import Header from './Header'
+import { Toaster } from '../ui/sonner'
 
 type LayoutProps = {
   classNameWrapper?: string
@@ -11,6 +12,7 @@ const Layout = (props: PropsWithChildren<LayoutProps>) => {
       <Header />
 
       {props?.children}
+      <Toaster richColors />
     </div>
   )
 }

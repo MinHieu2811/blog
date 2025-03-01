@@ -64,6 +64,34 @@ Here is an example of a paragraph. This is where you write content and include f
 
 ## Code Block Example
 
+Here is a <CustomForwardLink text="Promises From The Ground Up" href="https://www.joshwcomeau.com/javascript/promises/" />
+
+<CustomBlockInfo variant="info">
+
+This is kinda strange… the browser doesn’t rely on JavaScript to scroll the page, or to select text. So why can’t we do any of those things?
+
+I think browsers work this way to prevent bugs. Scrolling the page, for example, triggers “scroll” events which can be caught and handled with JavaScript. If the JS thread is occupied while the scroll event happens, that code never runs, which could lead to bugs if the developer assumed that scroll events would always be handled.
+
+</CustomBlockInfo>
+
+<CustomBlockInfo variant="success">
+
+Here is a <CustomForwardLink text="Promises From The Ground Up" href="https://www.joshwcomeau.com/javascript/promises/" />
+
+</CustomBlockInfo>
+
+<CustomBlockInfo variant="warning">
+
+Here is a <CustomForwardLink text="Promises From The Ground Up" href="https://www.joshwcomeau.com/javascript/promises/" />
+
+</CustomBlockInfo>
+
+<CustomBlockInfo variant="error">
+
+This blog post is intended for beginner-to-intermediate JavaScript developers. Some knowledge of basic JavaScript syntax is assumed.
+
+</CustomBlockInfo>
+
 Here’s a **TypeScript** example:
 
 ```tsx

@@ -1,5 +1,7 @@
 import React from 'react'
 import CodeBlock from './CodeBlock'
+import BlockInfo, { BlockInfoProps } from './BlockInfo'
+import ForwardLink, { ForwardLinkProps } from './ForwardLink'
 
 const CustomH1 = (props: object) => <h1 className="text-4xl font-bold my-4" {...props} />
 const CustomH2 = (props: { children: string }) => (
@@ -22,8 +24,20 @@ const CustomBlockquote = (props: object) => (
 )
 const CustomCode = (props: object) => <code className="bg-gray-100 text-red-500 px-1 py-0.5 rounded" {...props} />
 const CustomPre = (props: any) => <CodeBlock {...props} content={props?.children} />
+
+const CustomBlockInfo = (props: BlockInfoProps) => {
+  return <BlockInfo {...props}>{props?.children}</BlockInfo>
+}
 const CustomImage = (props: object) => <img className="rounded-md shadow-md" {...props} />
-const CustomA = (props: object) => <a className="text-blue-500 hover:underline" {...props} />
+const CustomA = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <a className="text-blue-500 hover:underline" {...props} />
+)
+
+const CustomForwardLink = (props: ForwardLinkProps) => {
+  return (
+    <ForwardLink {...props} />
+  )
+}
 
 export const mdxComponents = {
   h1: CustomH1,
@@ -34,5 +48,7 @@ export const mdxComponents = {
   code: CustomCode,
   pre: CustomPre,
   img: CustomImage,
-  a: CustomA
+  a: CustomA,
+  CustomBlockInfo: CustomBlockInfo,
+  CustomForwardLink: CustomForwardLink
 }

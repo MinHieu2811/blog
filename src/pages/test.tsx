@@ -30,7 +30,6 @@ const Test = ({ status, mdxSource, frontmatter, headings }: BlogPostProps) => {
   if (status === 500) return <ErrorPage statusCode={500} message="Internal server error." />
   return (
     <article>
-      <h1>{frontmatter?.title ?? ''}</h1>
       <HeadBlog
         title={frontmatter?.title}
         wordCount={estimatedTime}
@@ -62,6 +61,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     // const { slug } = params as { slug: string }
     // console.log(slug);
     const { data, error } = await supabase.storage.from('mdx-articles').download(`test.mdx`)
+
+    if(error) {
+      console.error(error)
+      return {
+        props: {
+          status: 500
+        }
+      }
+    }
 
     const text = (await data?.text()) ?? ''
 

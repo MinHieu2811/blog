@@ -90,7 +90,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
     }
   }
   return (
-    <div className={`sticky ${className} right-0 top-6`}>
+    <div className={`sticky ${className} right-0 top-14`}>
       <nav className="toc">
         <ul className="toc-item-wrapper">
           {transformedHeading?.map((heading, index) => (
