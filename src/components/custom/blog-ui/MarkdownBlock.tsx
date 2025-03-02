@@ -3,7 +3,7 @@ import CodeBlock from './CodeBlock'
 import BlockInfo, { BlockInfoProps } from './BlockInfo'
 import ForwardLink, { ForwardLinkProps } from './ForwardLink'
 
-const CustomH1 = (props: object) => <h1 className="text-4xl font-bold my-4" {...props} />
+const CustomH1 = (props: object) => <h1 className="text-4xl font-bold text-[#0070f3] my-4" {...props} />
 const CustomH2 = (props: { children: string }) => (
   <h2
     id={(props?.children ?? '')?.toLocaleLowerCase()?.replaceAll(' ', '-')}

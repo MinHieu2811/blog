@@ -25,58 +25,37 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
     [headings]
   )
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollPosition = window.scrollY + window.innerHeight / 2 // Lấy vị trí giữa màn hình
-  //     let closestSection = ''
-  //     let minDistance = Number.MIN_VALUE
-
-  //     document.querySelectorAll('h2, h3').forEach((section) => {
-  //       const sectionTop = section.getBoundingClientRect().top + window.scrollY
-  //       const distance = Math.abs(scrollPosition - sectionTop)
-
-  //       if (distance < minDistance) {
-  //         minDistance = distance
-  //         closestSection = section.id
-  //       }
-  //     })
-
-  //     setActiveId(closestSection)
-  //   }
-
-  //   window.addEventListener('scroll', handleScroll)
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll)
-  //   }
-  // }, [])
-
   useEffect(() => {
-    const headingElements = Array.from(document.querySelectorAll("h2, h3, h4"));
-
+    const headingElements = Array.from(document.querySelectorAll('h2, h3, h4'))
     const handleScroll = () => {
-      let closestHeading: string | null = null;
-      let closestDistance = Number.POSITIVE_INFINITY;
+      let closestHeading: string | null = null
+      let closestDistance = Number.POSITIVE_INFINITY
 
       headingElements.forEach((heading) => {
-        const rect = heading.getBoundingClientRect();
-        const distance = Math.abs(rect.top); // Khoảng cách so với mép trên viewport
+        const rect = heading.getBoundingClientRect()
+        const distance = Math.abs(rect.top) // Khoảng cách so với mép trên viewport
 
         if (rect.top >= 0 && distance < closestDistance) {
-          closestDistance = distance;
-          closestHeading = heading.id;
+          closestDistance = distance
+          closestHeading = heading.id
         }
-      });
+      })
 
-      setActiveId(closestHeading ?? '');
-    };
+      const isNearBottom = window?.innerHeight + window?.scrollY >= document.body.offsetHeight - 10
+      if (isNearBottom) {
+        closestHeading = headingElements[headingElements.length - 1]?.id || null
+      }
 
-    window.addEventListener("scroll", handleScroll);
+      setActiveId(closestHeading ?? '')
+    }
+
+    window.addEventListener('scroll', handleScroll)
     handleScroll()
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const handleScroll = (event: React.MouseEvent, id: string) => {
     event.preventDefault()
@@ -91,19 +70,20 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
   }
   return (
     <div className={`sticky ${className} right-0 top-14`}>
+      <p className="ml-4 mb-2 text-lg font-bold">TABLE OF CONTENT</p>
       <nav className="toc">
         <ul className="toc-item-wrapper">
           {transformedHeading?.map((heading, index) => (
             <li
               key={index}
-              className={`cursor-pointer toc-item-wrapper mb-2 ${activeId === heading?.query ? 'active' : ''}`}
+              className={`cursor-pointer toc-item-wrapper mb-2 px-1 ${activeId === heading?.query ? 'active' : ''}`}
               style={{ marginLeft: `${(heading?.level - 1) * 16}px` }}
             >
               {heading?.query === activeId && (
                 <motion.div
                   layoutId="activeIndicator"
-                  className="active-indicator"
-                  initial={{ opacity: 0, x: -10 }}
+                  className={`active-indicator`}
+                  initial={{ opacity: 0, x: -15 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 />

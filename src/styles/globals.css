@@ -4,12 +4,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1919;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1a1919;
     --foreground: #ededed;
   }
 }
@@ -152,14 +152,19 @@ body {
   display: block;
   font-weight: 600;
   font-size: 16px;
-  padding: 4px 12px;
+  padding: 4px 4px;
   color: gray;
   text-decoration: none;
-  transition: color 0.3s ease-in-out;
+  transform: translateX(0px);
+  transition: all 0.3s ease-in-out;
   position: relative;
 }
 
-.toc-item::after {
+.toc-item.active {
+  color: #0070f3;
+}
+
+/* .toc-item::after {
   content: "";
   width: 0;
   height: 2px;
@@ -168,12 +173,12 @@ body {
   left: 0;
   bottom: 0px;
   transition: width 0.3s ease-in-out;
-}
+} */
 
-.toc-item:hover::after {
-  width: 100%;
+.toc-item:hover {
+  transform: translateX(10px);
 }
-/* 
+/*
 .toc-item.active {
   font-weight: bold;
 } */
@@ -181,7 +186,7 @@ body {
 .active-indicator {
   position: absolute;
   left: -6px;
-  top: 4px;
+  top: 6px;
   width: 4px;
   height: 20px;
   background: #0070f3;
