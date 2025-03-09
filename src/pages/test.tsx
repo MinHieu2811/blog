@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
-import { fetchMdxContent } from '@/services/fetchMdxFiles'
+import { fetchMdxContent, FrontMatter } from '@/services/fetchMdxFiles'
 import ErrorPage from '@/pages/_error'
 import { mongo } from '@/lib/prisma'
 import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
@@ -16,7 +16,7 @@ import TableOfContent from '@/components/custom/TableOfContent'
 interface BlogPostProps {
   status: number
   mdxSource: any
-  frontmatter: { title: string; date: string; author: string } | null
+  frontmatter: FrontMatter | null
   headings: Array<{ text: string; level: number }>
 }
 
@@ -35,6 +35,7 @@ const Test = ({ status, mdxSource, frontmatter, headings }: BlogPostProps) => {
         wordCount={estimatedTime}
         author={frontmatter?.author}
         publishedAt={frontmatter?.date}
+        cover={frontmatter?.cover}
       />
       <div className="flex">
         <div className="flex-1">
@@ -49,9 +50,9 @@ const Test = ({ status, mdxSource, frontmatter, headings }: BlogPostProps) => {
 }
 
 // export const getStaticPaths: GetStaticPaths = async () => {
-//   const posts = await mongo.post.findMany({ select: { slug: true } })
+//   const posts = await mongo.post.findMany({ select: { slug: true, content: true } })
 //   console.log(posts);
-//   const paths = posts.map((post) => ({ params: { slug: post.slug } }))
+//   const paths = posts.map((post) => ({ params: { slug: post?.slug ?? '', content: post?.content ?? '' } }))
 
 //   return { paths, fallback: true }
 // }

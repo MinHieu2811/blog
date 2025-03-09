@@ -2,15 +2,15 @@ import { remark } from "remark";
 import remarkMdx from "remark-mdx";
 import { visit } from "unist-util-visit";
 
-type ParentTree = {
-  type: 'heading' | 'text'
-  depth: number
-  children: any
-  position: {
-    start: Position
-    end: Position
-  }
-}
+// type ParentTree = {
+//   type: 'heading' | 'text'
+//   depth: number
+//   children: any
+//   position: {
+//     start: Position
+//     end: Position
+//   }
+// }
 
 type ChildTree = {
   type: 'heading' | 'text'

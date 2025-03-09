@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useState } from 'react'
 
 type TableOfContentProps = {
@@ -11,6 +12,7 @@ type TableOfContentProps = {
 
 const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
   const [activeId, setActiveId] = useState<string>('')
+  const router = useRouter()
   const transformedHeading = useMemo(
     () =>
       headings
@@ -55,7 +57,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [router?.basePath])
 
   const handleScroll = (event: React.MouseEvent, id: string) => {
     event.preventDefault()

@@ -1,4 +1,4 @@
-import { CircleAlert, CircleCheck, CircleX, Info, TriangleAlert } from 'lucide-react'
+import { CircleAlert, CircleCheck, CircleX, Info } from 'lucide-react'
 import React from 'react'
 
 export type BlockInfoProps = {
@@ -9,28 +9,28 @@ export type BlockInfoProps = {
 
 const hardCodeForVariant = {
   info: {
-    colorIcon: 'var(--wh-blue-900)',
+    colorIcon: 'blue',
     colorBackgroundWrapper: 'border-blue-300 bg-blue-950',
-    color: 'border-black bg-blue-300',
-    icon: <Info color='var(--wh-blue-900)' size={30}/>
+    color: 'border-[#1a1919] bg-[#1a1919]',
+    icon: <Info color='blue' size={30}/>
   },
   success: {
-    colorIcon: 'var(--wh-green-900)',
+    colorIcon: 'green',
     colorBackgroundWrapper: 'border-green-300 bg-green-950',
-    color: 'border-black bg-green-300',
-    icon: <CircleCheck color='var(--wh-green-900)' size={30}/>
+    color: 'border-[#1a1919] bg-[#1a1919]',
+    icon: <CircleCheck color='green' size={30}/>
   },
   warning: {
-    colorIcon: 'var(--wh-yellow-900)',
+    colorIcon: 'yellow',
     colorBackgroundWrapper: 'border-yellow-300 bg-yellow-950',
-    color: 'border-black bg-yellow-300',
-    icon: <CircleAlert color='var(--wh-yellow-900)' size={30}/>
+    color: 'border-[#1a1919] bg-[#1a1919]',
+    icon: <CircleAlert color='yellow' size={30}/>
   },
   error: {
-    colorIcon: 'var(--wh-red-900)',
+    colorIcon: 'red',
     colorBackgroundWrapper: 'border-red-300 bg-red-950',
-    color: 'border-black bg-red-300',
-    icon: <CircleX color='var(--wh-red-900)' size={30}/>
+    color: 'border-[#1a1919] bg-[#1a1919]',
+    icon: <CircleX color='red' size={30}/>
   }
 }
 
