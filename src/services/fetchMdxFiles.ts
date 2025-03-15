@@ -9,6 +9,7 @@ export type FrontMatter = {
   author?: string
   cover?: string
   description?: string
+  tag?: string[]
 }
 
 export async function fetchMdxContent(slug: string) {

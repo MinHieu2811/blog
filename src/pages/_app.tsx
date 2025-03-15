@@ -9,11 +9,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <AnimatePresence mode="wait">
-        <PageTransition key={router.route}>
-          <Layout classNameWrapper={`container max-w-6xl m-auto ${fontMono?.variable} ${fontMono?.className}`}>
+        <Layout classNameWrapper={`container max-w-6xl m-auto ${fontMono?.variable} ${fontMono?.className}`}>
+          <PageTransition key={router.route}>
             <Component {...pageProps} />
-          </Layout>
-        </PageTransition>
+          </PageTransition>
+        </Layout>
       </AnimatePresence>
     </>
   )

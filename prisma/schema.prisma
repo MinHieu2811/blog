@@ -18,7 +18,7 @@ model Post {
   tag       String[]
   status    PostStatus
   publishedAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  updatedAt DateTime?  @updatedAt
 }
 
 enum PostStatus {

@@ -5,7 +5,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   transpilePackages: ['next-mdx-remote'],
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        hostname: "res.cloudinary.com"
+      }
+    ],
   },
 };
 

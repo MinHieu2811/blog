@@ -24,6 +24,7 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
 
   if (status === 404) return <ErrorPage statusCode={404} message="Post not found." />
   if (status === 500) return <ErrorPage statusCode={500} message="Internal server error." />
+
   return (
     <article>
       <HeadBlog
@@ -32,8 +33,9 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
         author={frontmatter?.author}
         publishedAt={frontmatter?.date}
         cover={frontmatter?.cover}
+        tag={frontmatter?.tag}
       />
-      <div className="flex">
+      <div className="flex mt-4">
         <div className="flex-1">
           <MDXRemote {...mdxSource} components={mdxComponents} />
         </div>
@@ -46,16 +48,28 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await mongo.post.findMany({ select: { slug: true, content: true } })
-  const paths = posts.map((post) => ({ params: { slug: post?.slug ?? '', content: post?.content ?? '' } }))
+  const posts = await mongo.post.findMany({ select: { slug: true } })
 
+  const paths = posts.map((post) => ({ params: { slug: post?.slug ?? '' } }))
   return { paths, fallback: true }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
-    const { slug = '' } = params as { slug?: string; content?: string }
-    const data = await fetchMdxContent(slug)
+    const { slug } = params as { slug: string }
+
+    const postMetadata = await mongo.post.findUnique({
+      where: {
+        slug: slug ?? ''
+      }
+    })
+    console.log(postMetadata)
+    const data = await fetchMdxContent(slug ?? '')
+    const frontmatter = {
+      ...(data?.frontmatter ?? {}),
+      description: postMetadata?.description,
+      tag: postMetadata?.tag
+    }
 
     if (data?.error) {
       return {
@@ -66,11 +80,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     return {
-      props: { mdxSource: data?.content, frontmatter: data?.frontmatter, headings: data?.headings ?? [] },
+      props: { mdxSource: data?.content, frontmatter: frontmatter, headings: data?.headings ?? [] },
       revalidate: 60 // ISR
     }
   } catch (error) {
-    console.error(error)
+    if (error instanceof Error) {
+      console.log('Error: ', error.stack)
+    }
     return {
       props: {
         status: 500
