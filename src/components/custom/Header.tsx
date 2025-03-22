@@ -1,7 +1,8 @@
 import React from 'react'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 import Navigation from './Navigation'
 import HeaderMobile from './HeaderMobile'
+import SeachDrawer from './SeachBlog'
 
 const Header = () => {
   return (
@@ -11,8 +12,9 @@ const Header = () => {
         <div className="navigation flex-1">
           <Navigation />
         </div>
-        <div className="search-bar flex-1">
-          <SearchBar />
+        <div className="search-bar flex-1 flex justify-end">
+          {/* <SearchBar /> */}
+          <SeachDrawer />
         </div>
       </div>
       <HeaderMobile />

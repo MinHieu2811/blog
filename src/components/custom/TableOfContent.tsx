@@ -34,12 +34,12 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
       let closestDistance = Number.POSITIVE_INFINITY
 
       headingElements.forEach((heading) => {
-        const rect = heading.getBoundingClientRect()
-        const distance = Math.abs(rect.top) // Khoảng cách so với mép trên viewport
+        const rect = heading?.getBoundingClientRect()
+        const distance = Math.abs(rect?.top)
 
-        if (rect.top >= 0 && distance < closestDistance) {
+        if (rect?.top >= 0 && distance < closestDistance) {
           closestDistance = distance
-          closestHeading = heading.id
+          closestHeading = heading?.id
         }
       })
 
@@ -57,7 +57,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [router?.basePath])
+  }, [router?.asPath])
 
   const handleScroll = (event: React.MouseEvent, id: string) => {
     event.preventDefault()

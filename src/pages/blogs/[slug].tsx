@@ -37,7 +37,7 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
       />
       <div className="flex mt-4">
         <div className="flex-1">
-          <MDXRemote {...mdxSource} components={mdxComponents} />
+          <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
         </div>
         <div className="relative">
           <TableOfContent headings={headings} />
@@ -63,7 +63,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         slug: slug ?? ''
       }
     })
-    console.log(postMetadata)
     const data = await fetchMdxContent(slug ?? '')
     const frontmatter = {
       ...(data?.frontmatter ?? {}),
