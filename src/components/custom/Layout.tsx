@@ -8,10 +8,10 @@ type LayoutProps = {
 
 const Layout = (props: PropsWithChildren<LayoutProps>) => {
   return (
-    <div className={`wrapper ${props?.classNameWrapper}`}>
+    <div className={`wrapper relative ${props?.classNameWrapper}`}>
       <Header />
 
-      {props?.children}
+      <div className="container max-w-6xl m-auto">{props?.children}</div>
       <Toaster richColors />
     </div>
   )

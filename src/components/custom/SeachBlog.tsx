@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Drawer, DrawerContent, DrawerTitle } from '../ui/drawer'
 import { Button } from '../ui/button'
-import { Search } from 'lucide-react'
+import { Frown, Search } from 'lucide-react'
 import { Input } from '../ui/input'
 import useDebounce from '@/hooks/useDebounce'
 import axios from 'axios'
@@ -9,6 +8,7 @@ import { handleSearchBlog } from '@/services/searchBlog'
 import { Skeleton } from '../ui/skeleton'
 import { Post } from '@prisma/client'
 import Link from 'next/link'
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../ui/sheet'
 
 let cancelTokenSource = axios.CancelToken.source()
 
@@ -21,7 +21,7 @@ const SeachDrawer = () => {
   const [loading, setLoading] = useState(false)
 
   const handleSearch = useCallback(async (keyword: string) => {
-    if(!keyword?.length) return
+    if (!keyword?.length) return
     let isFinished = false
     try {
       setLoading(true)
@@ -61,21 +61,29 @@ const SeachDrawer = () => {
   }, [debouncedKeyword, handleSearch])
 
   useEffect(() => {
-    if(!keyword) setResult([])
+    if (!keyword) setResult([])
   }, [keyword])
 
+  const onClearSearch = (isOpen: boolean) => {
+    if(!isOpen) {
+      setKeyword('')
+    }
+  }
+
   return (
-    <Drawer direction="bottom" open={open} onClose={() => setOpen(false)}>
-      <Button
-        variant="secondary"
-        className="w-[35px] h-[35px] flex justify-center items-center"
-        onClick={() => setOpen(true)}
-      >
-        <Search className="w-5 h-5 text-slate-800" />
-      </Button>
-      <DrawerContent className="h-2/3 bg-slate-800 border-none">
+    <Sheet onOpenChange={onClearSearch}>
+      <SheetTrigger asChild>
+        <Button
+          variant="secondary"
+          className="w-[35px] h-[35px] flex justify-center items-center"
+          onClick={() => setOpen(true)}
+        >
+          <Search className="w-5 h-5 text-slate-800" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="top" className="h-2/3 bg-slate-800 border-none">
         <div className="w-2/3 mx-auto mt-4">
-          <DrawerTitle className="text-3xl">Looking for something?</DrawerTitle>
+          <SheetTitle className="text-3xl">Looking for something?</SheetTitle>
           <Input
             className="w-full p-3 md:text-xl mt-4 h-14"
             ref={inputRef}
@@ -86,11 +94,13 @@ const SeachDrawer = () => {
 
           <div className="mt-5">
             {loading && <LoadingSearch />}
-            {!loading && !!keyword?.length && result?.length === 0 && <>There is no posts</>}
+            {!loading && !!keyword?.length && result?.length === 0 && <NotFound />}
             {!loading &&
               result?.map((item) => (
                 <div key={item?.id} className="p-4 border-b border-slate-700">
-                  <Link className="text-xl font-semibold" href={`/blogs/${item?.slug}`}>{item?.title ?? ''}</Link>
+                  <Link className="text-xl font-semibold" href={`/blogs/${item?.slug}`}>
+                    {item?.title ?? ''}
+                  </Link>
                   <div className="text-sm text-muted-foreground">
                     <HighlightText keyword={keyword} text={item?.content} />
                   </div>
@@ -98,27 +108,46 @@ const SeachDrawer = () => {
               ))}
           </div>
         </div>
-      </DrawerContent>
-    </Drawer>
+      </SheetContent>
+    </Sheet>
   )
 }
 
-const HighlightText = ({ text, keyword, contextLength = 140 }: {text: string, keyword: string, contextLength?: number }) => {
-  if (!keyword.trim()) return <span>{text}</span>;
+const NotFound = () => {
+  return (
+    <div className="mt-5 flex flex-col items-center justify-center">
+      <div className="icon">
+        <Frown size={50} />
+      </div>
+      <div className="text-lg mt-4">Sorry, I can&apos;t find your post!</div>
+    </div>
+  )
+}
 
-  const escapedKeyword = keyword?.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+const HighlightText = ({
+  text,
+  keyword,
+  contextLength = 140
+}: {
+  text: string
+  keyword: string
+  contextLength?: number
+}) => {
+  if (!keyword.trim()) return <span>{text}</span>
 
-  const regex = new RegExp(`(${escapedKeyword})`, "gi");
-  const match = text?.match(regex);
-  if (!match) return <span>{text}</span>;
+  const escapedKeyword = keyword?.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
-  const firstMatchIndex = text?.toLowerCase()?.indexOf(match[0]?.toLowerCase());
-  const start = Math.max(0, firstMatchIndex - contextLength);
-  const end = Math.min(text?.length, firstMatchIndex + keyword?.length + contextLength);
+  const regex = new RegExp(`(${escapedKeyword})`, 'gi')
+  const match = text?.match(regex)
+  if (!match) return <span>{text}</span>
 
-  const trimmedText = `${start > 0 ? "..." : ""}${text?.substring(start, end)}${end < text?.length ? "..." : ""}`;
+  const firstMatchIndex = text?.toLowerCase()?.indexOf(match[0]?.toLowerCase())
+  const start = Math.max(0, firstMatchIndex - contextLength)
+  const end = Math.min(text?.length, firstMatchIndex + keyword?.length + contextLength)
 
-  const parts = trimmedText?.split(regex);
+  const trimmedText = `${start > 0 ? '...' : ''}${text?.substring(start, end)}${end < text?.length ? '...' : ''}`
+
+  const parts = trimmedText?.split(regex)
 
   return (
     <span>
@@ -132,8 +161,8 @@ const HighlightText = ({ text, keyword, contextLength = 140 }: {text: string, ke
         )
       )}
     </span>
-  );
-};
+  )
+}
 
 const LoadingSearch = () => {
   return (

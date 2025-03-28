@@ -28,7 +28,7 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="flex gap-2 relative justify-center w-full z-[100]  rounded-lg">
+    <nav className="flex gap-2 relative justify-center w-full z-[1]  rounded-lg">
       {navItems.map((item) => {
         const isActive = checkActivePath(pathname, item?.path ?? '')
         return (
