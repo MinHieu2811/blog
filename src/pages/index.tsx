@@ -1,4 +1,5 @@
 import { MainCard, SubCard } from '@/components/custom/Card'
+import { fetchHomeBlogs } from '@/services/fetchHomeBlogs'
 
 const fakeData = {
   main: {
@@ -45,8 +46,8 @@ export default function Home() {
         <MainCard {...fakeData.main} className="grid-item large" />
         <SubCard {...fakeData.sub1} className="grid-item medium" placeHeader="top" />
         <SubCard {...fakeData.sub2} className="grid-item medium" placeHeader="bottom" />
-        <SubCard {...fakeData.sub3} className="grid-item small" placeHeader='top'/>
-        <SubCard {...fakeData.sub4} className="grid-item tags" />
+        <SubCard {...fakeData.sub3} className="grid-item medium" placeHeader='top'/>
+        <SubCard {...fakeData.sub4} className="grid-item medium" />
       </div>
     </div>
   )
@@ -54,8 +55,7 @@ export default function Home() {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch('/api/list-post')
-    const data = await res.json()
+    const data = await fetchHomeBlogs()
     return {
       props: {
         data

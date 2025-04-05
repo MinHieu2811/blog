@@ -37,8 +37,7 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
       />
       <div className="flex mt-4">
         <div className="flex-1">
-          <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
-        </div>
+          <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} /></div>
         <div className="relative">
           <TableOfContent headings={headings} />
         </div>
@@ -73,7 +72,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (data?.error) {
       return {
         props: {
-          status: 500
+          status: 500,
+          mdxSource: '',
+          frontmatter,
+          headings: []
         }
       }
     }
@@ -88,7 +90,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
     return {
       props: {
-        status: 500
+        status: 500,
+        mdxSource: '',
+        frontmatter: {},
+        headings: []
       }
     }
   }

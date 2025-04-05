@@ -20,7 +20,7 @@ const MainCard = ({ title, tag = [], image, link, publishedAt, className }: Card
   return (
     <Card className={className}>
       <CardContent className="rounded-t-lg">
-        <Image src={image ?? ''} alt={title ?? ''} fill />
+        <img src={image ?? ''} alt={title ?? ''} />
       </CardContent>
       <CardFooter>
         <div className="flex">
@@ -64,7 +64,7 @@ const SubCard = ({
         </CardHeader>
       )}
       <CardContent className="rounded-t-lg">
-        <Image src={image ?? ''} alt={title ?? ''} fill />
+        <img src={image ?? ''} alt={title ?? ''} />
       </CardContent>
       {placeHeader == 'bottom' && (
         <CardFooter>

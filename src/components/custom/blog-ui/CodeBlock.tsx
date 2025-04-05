@@ -1,11 +1,7 @@
-import CopyIcon from '@/components/icons/Copy'
-import { Button } from '@/components/ui/button'
 import { highlight } from '@/lib/shiki'
-import { onCopy } from '@/utils/handleCopy'
-import { Copy } from 'lucide-react'
 import React, { JSX, useLayoutEffect } from 'react'
 import { BundledLanguage } from 'shiki/bundle/web'
-import { toast } from 'sonner'
+import CopyButton from '../CopyButton'
 
 export type CodeBlockProps = {
   content: any
@@ -22,20 +18,15 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ content, className = '', language
       .catch((err) => console.error(err))
   }, [content, language])
 
-  const handleCopy = (content?: string) => {
-    toast?.success('Copied to clipboard successfully!')
-    onCopy(content ?? '')
-  }
-
   return (
     <div className={`${className} relative`}>
-      <Button
-        variant="default"
+      <CopyButton
+        buttonConfig={{
+          variant: 'default'
+        }}
         className="absolute top-4 right-4"
-        onClick={() => handleCopy(content?.props?.children ?? '')}
-      >
-        <Copy />
-      </Button>
+        textToCopy={content?.props?.children}
+      />
       {highlightedCode ?? <pre className="p-3 rounded-md border-gray-300">{content?.props?.children}</pre>}
     </div>
   )

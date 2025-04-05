@@ -71,7 +71,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
     }
   }
   return (
-    <div className={`sticky ${className} right-0 top-14`}>
+    <div className={`sticky ${className} right-0 top-24`}>
       <p className="ml-4 mb-2 text-lg font-bold">TABLE OF CONTENT</p>
       <nav className="toc">
         <ul className="toc-item-wrapper">

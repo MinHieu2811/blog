@@ -11,25 +11,25 @@ const hardCodeForVariant = {
   info: {
     colorIcon: 'blue',
     colorBackgroundWrapper: 'border-blue-300 bg-blue-950',
-    color: 'border-[#1a1919] bg-[#1a1919]',
+    color: 'border-[#201F1F] bg-[#201F1F]',
     icon: <Info color='blue' size={30}/>
   },
   success: {
     colorIcon: 'green',
     colorBackgroundWrapper: 'border-green-300 bg-green-950',
-    color: 'border-[#1a1919] bg-[#1a1919]',
+    color: 'border-[#201F1F] bg-[#201F1F]',
     icon: <CircleCheck color='green' size={30}/>
   },
   warning: {
     colorIcon: 'yellow',
     colorBackgroundWrapper: 'border-yellow-300 bg-yellow-950',
-    color: 'border-[#1a1919] bg-[#1a1919]',
+    color: 'border-[#201F1F] bg-[#201F1F]',
     icon: <CircleAlert color='yellow' size={30}/>
   },
   error: {
     colorIcon: 'red',
     colorBackgroundWrapper: 'border-red-300 bg-red-950',
-    color: 'border-[#1a1919] bg-[#1a1919]',
+    color: 'border-[#201F1F] bg-[#201F1F]',
     icon: <CircleX color='red' size={30}/>
   }
 }

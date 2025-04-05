@@ -19,7 +19,7 @@ const HeadBlog = ({ className = '', title, cover, wordCount, publishedAt = '', a
     <div className={`${className}`}>
       {cover?.length ? (
         <div className="relative w-full aspect-[16/9] mb-4">
-          <Image src={cover} priority className="object-cover rounded-lg" fill alt={title ?? ''} />
+          <Image src={cover} priority className="object-cover rounded-lg z-0" fill alt={title ?? ''} />
         </div>
       ) : (
         <></>

@@ -18,11 +18,15 @@ export async function fetchMdxContent(slug: string) {
       throw new Error('This post does not exist!')
     }
     const { data, error } = await supabase.storage.from('mdx-articles').download(`${slug}.mdx`)
-    // const { data, error } = await supabase.storage.getBucket("mdx-articles")
 
     if (error) {
       console.error('Error fetching MDX file:', JSON.stringify(error))
-      return null
+      return {
+        content: '',
+        frontmatter: {},
+        error: {},
+        headings: []
+      }
     }
 
     const text = await data?.text()
