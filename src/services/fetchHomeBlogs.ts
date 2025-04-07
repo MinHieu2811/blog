@@ -1,13 +1,35 @@
-export const fetchHomeBlogs = async () => {
+import { axiosInstance } from '@/lib/axios'
+import { Post } from '@prisma/client'
+
+export type BlogPost = Pick<Post, 'content' | 'cover' | 'description' | 'publishedAt' | 'slug' | 'tag' | 'title'> & {
+  id: string
+}
+
+export type HomeBlogs = {
+  latest: BlogPost
+  posts: BlogPost[]
+}
+
+export const fetchHomeBlogs = async (): Promise<HomeBlogs> => {
   try {
-    const res = await fetch('http://localhost:3000/api/list-post')
+    const res = await axiosInstance.get('/list-post')
 
-    const toJson = await res?.json()
-
-    return toJson
+    return res?.data
   } catch (error) {
     console.error(error)
 
-    return {}
+    return {
+      latest: {
+        id: '',
+        title: '',
+        slug: '',
+        content: '',
+        description: '',
+        publishedAt: new Date(),
+        cover: '',
+        tag: []
+      },
+      posts: []
+    }
   }
 }

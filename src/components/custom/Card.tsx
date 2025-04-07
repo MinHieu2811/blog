@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
 import { Badge } from '../ui/badge'
 import { Separator } from '../ui/separator'
@@ -11,12 +11,12 @@ type CardProps = {
   title?: string
   tag?: string[]
   image?: string
-  link?: string
+  slug?: string
   publishedAt?: Date
   className?: string
 }
 
-const MainCard = ({ title, tag = [], image, link, publishedAt, className }: CardProps) => {
+const MainCard = ({ title, tag = [], image, slug, publishedAt, className }: CardProps) => {
   return (
     <Card className={className}>
       <CardContent className="rounded-t-lg">
@@ -31,7 +31,7 @@ const MainCard = ({ title, tag = [], image, link, publishedAt, className }: Card
           </div>
         </div>
         <CardTitle>
-          <Link href={link ?? ''}>{title ?? ''}</Link>
+          <Link href={`/blogs/${slug ?? ''}`}>{title ?? ''}</Link>
         </CardTitle>
       </CardFooter>
     </Card>
@@ -43,7 +43,7 @@ const SubCard = ({
   title,
   tag = [],
   image,
-  link,
+  slug,
   publishedAt,
   placeHeader
 }: CardProps & { placeHeader?: 'top' | 'bottom' }) => {
@@ -59,7 +59,7 @@ const SubCard = ({
             </div>
           </div>
           <CardTitle>
-            <Link href={link ?? ''}>{title ?? ''}</Link>
+            <Link href={`/blogs/${slug ?? ''}`}>{title ?? ''}</Link>
           </CardTitle>
         </CardHeader>
       )}
@@ -76,7 +76,7 @@ const SubCard = ({
             </div>
           </div>
           <CardTitle>
-            <Link href={link ?? ''}>{title ?? ''}</Link>
+            <Link href={`/blogs/${slug ?? ''}`}>{title ?? ''}</Link>
           </CardTitle>
         </CardFooter>
       )}

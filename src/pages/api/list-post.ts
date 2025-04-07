@@ -10,7 +10,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       orderBy: { publishedAt: 'desc' }
     })
 
-    res.json(posts)
+    res.json({
+      latest: posts?.[0],
+      posts: posts?.slice(1)
+    })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Internal server error' })

@@ -29,26 +29,34 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
 
   useEffect(() => {
     const headingElements = Array.from(document.querySelectorAll('h2, h3, h4'))
+    let allGoThrough = false
     const handleScroll = () => {
       let closestHeading: string | null = null
       let closestDistance = Number.POSITIVE_INFINITY
 
-      headingElements.forEach((heading) => {
+      headingElements.forEach((heading, index) => {
         const rect = heading?.getBoundingClientRect()
         const distance = Math.abs(rect?.top)
+
+        if (index == headingElements.length - 1) {
+          console.log('distance', distance)
+          console.log('closet distance', closestDistance)
+        }
 
         if (rect?.top >= 0 && distance < closestDistance) {
           closestDistance = distance
           closestHeading = heading?.id
         }
+
+        allGoThrough = index == headingElements?.length - 1 && rect?.top < 0
       })
 
-      const isNearBottom = window?.innerHeight + window?.scrollY >= document.body.offsetHeight - 10
-      if (isNearBottom) {
-        closestHeading = headingElements[headingElements.length - 1]?.id || null
-      }
+      // const isNearBottom = window?.innerHeight + window?.scrollY >= document.body.offsetHeight - 10
+      // if (isNearBottom) {
+      //   closestHeading = headingElements[headingElements.length - 1]?.id || null
+      // }
 
-      setActiveId(closestHeading ?? '')
+      setActiveId(allGoThrough ? headingElements[headingElements.length - 1]?.id : (closestHeading ?? ''))
     }
 
     window.addEventListener('scroll', handleScroll)

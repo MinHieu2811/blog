@@ -22,7 +22,8 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ content, className = '', language
     <div className={`${className} relative`}>
       <CopyButton
         buttonConfig={{
-          variant: 'default'
+          variant: 'default',
+          size: 'icon'
         }}
         className="absolute top-4 right-4"
         textToCopy={content?.props?.children}

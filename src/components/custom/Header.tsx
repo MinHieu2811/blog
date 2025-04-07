@@ -21,12 +21,12 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
   return (
-    <div
-      className={`sticky top-0 w-full transition-all duration-300 z-10 ${
-        isScrolled ? 'bg-white/20 backdrop-blur-md shadow-md' : 'bg-transparent'
-      }`}
-    >
-      <div className="container justify-between items-center p-4 max-w-6xl m-auto hidden md:flex">
+    <div className={`sticky top-0 w-full z-10 bg-transparent }`}>
+      <div
+        className={`container justify-between items-center p-4 max-w-6xl transition-all duration-300 m-auto hidden md:flex ${
+          isScrolled ? 'bg-white/20 backdrop-blur-md shadow-md translate-y-3 rounded-md' : ''
+        }`}
+      >
         <div className="logo flex items-center">
           <Link href="/">
             <span className="mr-5">LOGO</span>
