@@ -38,11 +38,6 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
         const rect = heading?.getBoundingClientRect()
         const distance = Math.abs(rect?.top)
 
-        if (index == headingElements.length - 1) {
-          console.log('distance', distance)
-          console.log('closet distance', closestDistance)
-        }
-
         if (rect?.top >= 0 && distance < closestDistance) {
           closestDistance = distance
           closestHeading = heading?.id

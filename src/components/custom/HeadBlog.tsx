@@ -1,6 +1,5 @@
 import { Separator } from '@/components/ui/separator'
 import { format } from 'date-fns'
-import Image from 'next/image'
 import React from 'react'
 import { Badge } from '../ui/badge'
 import { Post } from '@prisma/client'
@@ -11,16 +10,9 @@ type HeadBlogProps = Pick<Post, 'title' | 'cover' | 'publishedAt' | 'tag'> & {
   author?: string
 }
 
-const HeadBlog = ({ className = '', title, cover, wordCount, publishedAt = new Date(), author = 'ChatGPT', tag = [] }: HeadBlogProps) => {
+const HeadBlog = ({ className = '', title, wordCount, publishedAt = new Date(), author = 'ChatGPT', tag = [] }: HeadBlogProps) => {
   return (
     <div className={`${className}`}>
-      {cover?.length ? (
-        <div className="relative w-full aspect-[16/9] mb-4">
-          <Image src={cover} priority className="object-cover rounded-lg z-0" fill alt={title ?? ''} />
-        </div>
-      ) : (
-        <></>
-      )}
       <h1 className="text-center text-4xl mb-2">{title}</h1>
       <div className="flex justify-center items-center h-5">
         {author?.length ? (
