@@ -3,18 +3,15 @@ import { format } from 'date-fns'
 import Image from 'next/image'
 import React from 'react'
 import { Badge } from '../ui/badge'
+import { Post } from '@prisma/client'
 
-type HeadBlogProps = {
+type HeadBlogProps = Pick<Post, 'title' | 'cover' | 'publishedAt' | 'tag'> & {
   className?: string
-  title?: string
   wordCount?: string
-  cover?: string
-  publishedAt?: string
   author?: string
-  tag?: string[]
 }
 
-const HeadBlog = ({ className = '', title, cover, wordCount, publishedAt = '', author, tag = [] }: HeadBlogProps) => {
+const HeadBlog = ({ className = '', title, cover, wordCount, publishedAt = new Date(), author = 'ChatGPT', tag = [] }: HeadBlogProps) => {
   return (
     <div className={`${className}`}>
       {cover?.length ? (
@@ -24,7 +21,7 @@ const HeadBlog = ({ className = '', title, cover, wordCount, publishedAt = '', a
       ) : (
         <></>
       )}
-      <h1 className="text-center text-3xl mb-2">{title}</h1>
+      <h1 className="text-center text-4xl mb-2">{title}</h1>
       <div className="flex justify-center items-center h-5">
         {author?.length ? (
           <>
