@@ -20,6 +20,7 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
   const refRenderer = useRef<THREE.WebGLRenderer | null>(null)
   // const urlDogGLB = (process.env.NODE_ENV === 'production' ? 'https://craftzdog.global.ssl.fastly.net/homepage' : '') + '/dog.glb'
   const urlDogGLB = '/dog.glb'
+  console.count('render VoxelDog')
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer

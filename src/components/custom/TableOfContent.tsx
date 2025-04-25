@@ -13,6 +13,7 @@ type TableOfContentProps = {
 const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
   const [activeId, setActiveId] = useState<string>('')
   const router = useRouter()
+  console.count('render TableOfContent')
   const transformedHeading = useMemo(
     () =>
       headings

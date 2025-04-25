@@ -28,12 +28,12 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
   return (
     <article>
       <HeadBlog
-        title={frontmatter?.title}
+        title={frontmatter?.title ?? ''}
         wordCount={estimatedTime}
         author={frontmatter?.author}
-        publishedAt={frontmatter?.date}
-        cover={frontmatter?.cover}
-        tag={frontmatter?.tag}
+        publishedAt={new Date(frontmatter?.date ?? '')}
+        cover={frontmatter?.cover ?? ''}
+        tag={frontmatter?.tag ?? []}
       />
       <div className="flex mt-4">
         <div className="flex-1">

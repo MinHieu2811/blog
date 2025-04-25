@@ -20,6 +20,7 @@ const SeachDrawer = () => {
   const debouncedKeyword = useDebounce(keyword, 500)
   const [result, setResult] = useState<Array<Pick<Post, 'content' | 'id' | 'description' | 'title' | 'slug'>>>([])
   const [loading, setLoading] = useState(false)
+  console.count('render SearchDrawer')
 
   const handleSearch = useCallback(async (keyword: string) => {
     if (!keyword?.length) return

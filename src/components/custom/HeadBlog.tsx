@@ -11,6 +11,7 @@ type HeadBlogProps = Pick<Post, 'title' | 'cover' | 'publishedAt' | 'tag'> & {
 }
 
 const HeadBlog = ({ className = '', title, wordCount, publishedAt = new Date(), author = 'ChatGPT', tag = [] }: HeadBlogProps) => {
+  console.count('render HeadBlog')
   return (
     <div className={`${className}`}>
       <h1 className="text-center text-4xl mb-2">{title}</h1>
