@@ -1,71 +1,32 @@
-import { MainCard, SubCard } from '@/components/custom/Card'
-import { BlogPost, fetchHomeBlogs, HomeBlogs } from '@/services/fetchHomeBlogs'
+import { fetchHomeBlogs, HomeBlogs } from '@/services/fetchHomeBlogs'
 import ErrorPage from './_error'
-
-// const fakeData = {
-//   main: {
-//     title: 'Lorem ipsum dolor sit amet ',
-//     image: '',
-//     link: '/',
-//     publishedAt: new Date(),
-//     tag: ['tag1', 'tag2', 'tag3']
-//   },
-//   sub1: {
-//     title: 'Lorem ipsum dolor sit amet ',
-//     image: '',
-//     link: '/',
-//     publishedAt: new Date(),
-//     tag: ['tag1', 'tag2', 'tag3']
-//   },
-//   sub2: {
-//     title: 'Lorem ipsum dolor sit amet ',
-//     image: '',
-//     link: '/',
-//     publishedAt: new Date(),
-//     tag: ['tag1', 'tag2', 'tag3']
-//   },
-//   sub3: {
-//     title: 'Lorem ipsum dolor sit amet ',
-//     image: '',
-//     link: '/',
-//     publishedAt: new Date(),
-//     tag: ['tag1', 'tag2', 'tag3']
-//   },
-//   sub4: {
-//     title: 'Lorem ipsum dolor sit amet ',
-//     image: '',
-//     link: '/',
-//     publishedAt: new Date(),
-//     tag: []
-//   }
-// }
-
+import { fetchCategory } from '@/services/fetchCategory'
+import { Category } from '@prisma/client'
+import BlogList from '@/components/custom/BlogList'
 type Props = HomeBlogs & {
   status?: number
   error?: string
+  categories: Category[]
 }
 
-export default function Home({ latest, posts, status }: Props) {
+export default function Home({ status, posts }: Props) {
   if (status === 404) return <ErrorPage statusCode={404} message="Post not found." />
   if (status === 500) return <ErrorPage statusCode={500} message="Internal server error." />
   return (
     <div className="container">
-      <div className="grid-masonry-container">
-        <MainCard {...latest} className="grid-item large" />
-        {posts?.map((post: BlogPost, index: number) => (
-          <SubCard {...post} key={`${post?.id}-${index}`} className="grid-item medium" placeHeader="top" />
-        ))}
-      </div>
+      <BlogList posts={posts} />
     </div>
   )
 }
 
 export async function getServerSideProps() {
   try {
-    const data = await fetchHomeBlogs()
+    const listBlogs = await fetchHomeBlogs()
+    const listCategory = await fetchCategory()
     return {
       props: {
-        ...data,
+        posts: listBlogs?.posts ?? [],
+        categories: listCategory,
         status: 200
       }
     }
@@ -74,6 +35,8 @@ export async function getServerSideProps() {
     return {
       props: {
         status: 500,
+        posts: [],
+        categories: [],
         error: 'Failed to fetch data'
       }
     }

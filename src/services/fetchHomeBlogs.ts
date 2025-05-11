@@ -1,13 +1,8 @@
 import { axiosInstance } from '@/lib/axios'
 import { Post } from '@prisma/client'
 
-export type BlogPost = Pick<Post, 'content' | 'cover' | 'description' | 'publishedAt' | 'slug' | 'tag' | 'title'> & {
-  id: string
-}
-
 export type HomeBlogs = {
-  latest: BlogPost
-  posts: BlogPost[]
+  posts: Post[]
 }
 
 export const fetchHomeBlogs = async (): Promise<HomeBlogs> => {
@@ -19,16 +14,6 @@ export const fetchHomeBlogs = async (): Promise<HomeBlogs> => {
     console.error(error)
 
     return {
-      latest: {
-        id: '',
-        title: '',
-        slug: '',
-        content: '',
-        description: '',
-        publishedAt: new Date(),
-        cover: '',
-        tag: []
-      },
       posts: []
     }
   }

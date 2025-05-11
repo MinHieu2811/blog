@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const frontmatter = {
       ...(data?.frontmatter ?? {}),
       description: postMetadata?.description,
-      tag: postMetadata?.tag
+      tag: postMetadata?.keyword
     }
 
     if (data?.error) {
