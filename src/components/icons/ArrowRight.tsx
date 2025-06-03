@@ -32,7 +32,7 @@ const ArrowRight = ({ isHovered = false, size = 16 }: ArrowRightProps) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`lucide lucide-arrow-right-icon lucide-arrow-right w-[${size}px] h-[${size}px]`}
+      className={`lucide lucide-arrow-right-icon overflow-visible lucide-arrow-right w-[${size}px] h-[${size}px]`}
     >
       <path
         d={isHovered ? 'M5 12h17' : 'M5 12h14'}
@@ -42,7 +42,7 @@ const ArrowRight = ({ isHovered = false, size = 16 }: ArrowRightProps) => {
       />
       <g style={{ transform: `translateX(${springProps.x.get()}px)`, transition: 'd 0.3s ease-in-out' }}>
         <path
-          d={isHovered ? 'm15 5 7 7-7 7' : 'm12 5 7 7-7 7'}
+          d={isHovered ? 'm18 5 7 7-7 7' : 'm12 5 7 7-7 7'}
           style={{
             transition: 'd 0.3s ease-in-out'
           }}

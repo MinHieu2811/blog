@@ -1,9 +1,32 @@
 import React from 'react'
-import VoxelDog from './VoxelDog'
+import dynamic from 'next/dynamic'
+
+const LoadingPlaceholder = () => {
+  return (
+    <div className="flex w-full h-full items-center justify-center">
+      <svg
+        className="size-7 animate-spin ..."
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+      </svg>
+    </div>
+  )
+}
+
+const LazyVoxelDog = dynamic(() => import('./VoxelDog'), {
+  loading: LoadingPlaceholder,
+  ssr: false,
+})
 
 const SkyBackground = () => {
   return (
-    <div className="relative overflow-hidden pt-[100px] bg-slate-400">
+    <div className="relative overflow-hidden pt-[50px] bg-slate-400">
       <div className="upper-sky">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +44,7 @@ const SkyBackground = () => {
         </svg>
       </div>
 
-      <div className="bottom-sky absolute bottom-[-40px] left-[-10px] w-full z-0">
+      <div className="bottom-sky absolute bottom-[-40px] left-[-110px] w-full z-0">
         <svg
           width="5120"
           height="456"
@@ -41,10 +64,9 @@ const SkyBackground = () => {
         </svg>
       </div>
       <div className="container max-w-6xl absolute w-full h-full top-0 right-0 z-10">
-        <VoxelDog className="" />
+        <LazyVoxelDog className="" />
       </div>
     </div>
   )
 }
-
 export default SkyBackground

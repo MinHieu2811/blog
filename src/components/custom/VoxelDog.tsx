@@ -36,8 +36,8 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
   useEffect(() => {
     const { current: container } = refContainer
     if (container) {
-      const scW = container?.clientWidth ?? 0
-      const scH = container?.clientHeight ?? 0
+      const scW = (container?.clientWidth ?? 0) + 200
+      const scH = (container?.clientHeight ?? 0) + 200
 
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -114,16 +114,16 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
   }, [handleWindowResize])
 
   return (
-    <div className={`mx-auto lg:w-[540px] lg:h-[540px] md:w-[400px] md:h-[400px] w-[240px] h-[240px] relative voxel-dog ${className}`} ref={refContainer}>
-      {loading && <>Loading</>}
+    <div className={`mx-auto lg:w-[540px] lg:h-[540px] md:w-[400px] md:h-[400px] w-[240px] h-[240px] relative cursor-grab active:cursor-grabbing voxel-dog ${className}`} ref={refContainer}>
+      {loading && (
+        <div className="flex w-full h-full items-center justify-center z-20">
+          <svg className="size-7 animate-spin ..." viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+        </div>
+      )}
     </div>
   )
 }
-
-// m="auto"
-//     mt={['-20px', '-60px', '-120px']}
-//     mb={['-40px', '-140px', '-200px']}
-//     w={[280, 480, 640]}
-//     h={[280, 480, 640]}
 
 export default VoxelDog

@@ -24,13 +24,13 @@ const BlogTitle = ({
     throw Error('href is missing from a link')
   }
   return (
-    <div className={`${className}`}>
+    <div className={`${className} relative inline-block`}>
       {isLink ? (
         <Link href={href}>
-          <Tag className={`${showHover ? 'hover:border-blue-800 hover:border-b inline-block' : ''}`}>{children}</Tag>
+          <Tag className={`${showHover ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-800 after:transition-transform after:duration-300 after:origin-bottom-left after:scale-x-0 hover:after:scale-x-100 inline-block' : ''}`}>{children}</Tag>
         </Link>
       ) : (
-        <Tag className={`${showHover ? 'hover:border-blue-800 hover:border-b inline-block' : ''}`}>{children}</Tag>
+        <Tag className={`${showHover ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-800 after:transition-transform after:duration-300 after:origin-bottom-left after:scale-x-0 hover:after:scale-x-100 inline-block' : ''}`}>{children}</Tag>
       )}
       {!!description?.length && <span>{description}</span>}
     </div>

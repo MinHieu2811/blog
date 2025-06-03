@@ -14,9 +14,9 @@ type BlogListProps = {
 const BlogList = ({ className, posts }: BlogListProps) => {
   return (
     <div className={cn('list-post', className)}>
-      <h1 className="mb-4 text-lg text-pink-800 font-bold">ARTICLES</h1>
+      <h1 className="mb-4 text-xl text-pink-800 font-bold">ARTICLES</h1>
       {posts.map((post) => (
-        <BlogListItem key={post.id} {...post} />
+        <BlogListItem key={post.id} {...post} className='mb-5' />
       ))}
     </div>
   )
@@ -34,11 +34,11 @@ const BlogListItem = ({ className, slug, title, description }: BlogListItemProps
   }, [slug])
   return (
     <div className={cn('blog-list-item', className)}>
-      <BlogTitle tag="h4" showHover isLink href={`/blogs/${slug}`}>
+      <BlogTitle tag="h4" className='text-xl mb-2' showHover isLink href={`/blogs/${slug}`}>
         {title}
       </BlogTitle>
-      <p className="text-sm text-gray-500">{description}</p>
-      <IconButton 
+      <p className="text-base text-gray-500">{description}</p>
+      <IconButton
         variant="link"
         icon={<ArrowRight size={24} />}
         onClick={handleReadMore}
