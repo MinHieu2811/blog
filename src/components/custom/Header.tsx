@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-// import SearchBar from './SearchBar'
-// import Navigation from './Navigation'
-// import HeaderMobile from './HeaderMobile'
-import SeachDrawer from './SeachBlog'
 import Link from 'next/link'
+
+import SeachDrawer from './SeachBlog'
 
 const Header = () => {
   return (
@@ -38,8 +36,10 @@ const ScrollHeader = ({ children }: { children: React.ReactNode }) => {
     }
 
     window.addEventListener('scroll', handleScroll)
+
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
   return (
     <div
       className={`fixed w-full z-50 transition-all duration-300 bg-transparent ${isScrolled ? ' backdrop-blur-md bg-white/20 top-0' : 'top-[10px] '}`}

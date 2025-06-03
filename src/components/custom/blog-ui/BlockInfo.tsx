@@ -12,25 +12,25 @@ const hardCodeForVariant = {
     colorIcon: 'blue',
     colorBackgroundWrapper: 'border-blue-300 bg-blue-950',
     color: 'border-[#0d0f12] bg-[#0d0f12]',
-    icon: <Info color='blue' size={30}/>
+    icon: <Info color="blue" size={30} />
   },
   success: {
     colorIcon: 'green',
     colorBackgroundWrapper: 'border-green-300 bg-green-950',
     color: 'border-[#0d0f12] bg-[#0d0f12]',
-    icon: <CircleCheck color='green' size={30}/>
+    icon: <CircleCheck color="green" size={30} />
   },
   warning: {
     colorIcon: 'yellow',
     colorBackgroundWrapper: 'border-yellow-300 bg-yellow-950',
     color: 'border-[#0d0f12] bg-[#0d0f12]',
-    icon: <CircleAlert color='yellow' size={30}/>
+    icon: <CircleAlert color="yellow" size={30} />
   },
   error: {
     colorIcon: 'red',
     colorBackgroundWrapper: 'border-red-300 bg-red-950',
     color: 'border-[#0d0f12] bg-[#0d0f12]',
-    icon: <CircleX color='red' size={30}/>
+    icon: <CircleX color="red" size={30} />
   }
 }
 

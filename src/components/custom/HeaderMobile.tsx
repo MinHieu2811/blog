@@ -1,6 +1,7 @@
 import { AlignJustify } from 'lucide-react'
 import React from 'react'
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
 
 const HeaderMobile = () => {
   return (
@@ -13,7 +14,6 @@ const HeaderMobile = () => {
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle></SheetTitle>
             <SheetDescription>
               This action cannot be undone. This will permanently delete your account and remove your data from our
               servers.

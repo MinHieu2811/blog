@@ -1,8 +1,10 @@
-import { Separator } from '@/components/ui/separator'
 import { format } from 'date-fns'
 import React from 'react'
-import { Badge } from '../ui/badge'
 import { Post } from '@prisma/client'
+
+import { Badge } from '../ui/badge'
+
+import { Separator } from '@/components/ui/separator'
 
 type HeadBlogProps = Pick<Post, 'title' | 'cover' | 'publishedAt' | 'keyword'> & {
   className?: string
@@ -10,8 +12,14 @@ type HeadBlogProps = Pick<Post, 'title' | 'cover' | 'publishedAt' | 'keyword'> &
   author?: string
 }
 
-const HeadBlog = ({ className = '', title, wordCount, publishedAt = new Date(), author = 'ChatGPT', keyword = [] }: HeadBlogProps) => {
-  console.count('render HeadBlog')
+const HeadBlog = ({
+  className = '',
+  title,
+  wordCount,
+  publishedAt = new Date(),
+  author = 'ChatGPT',
+  keyword = []
+}: HeadBlogProps) => {
   return (
     <div className={`${className}`}>
       <h1 className="text-center text-4xl mb-2">{title}</h1>
@@ -19,13 +27,13 @@ const HeadBlog = ({ className = '', title, wordCount, publishedAt = new Date(), 
         {author?.length ? (
           <>
             <div className="text-sm">{author}</div>
-            <Separator orientation="vertical" className="mx-2" />
+            <Separator className="mx-2" orientation="vertical" />
           </>
         ) : (
           <></>
         )}
         <div className="text-sm">{wordCount}</div>
-        <Separator orientation="vertical" className="mx-2" />
+        <Separator className="mx-2" orientation="vertical" />
         <div className="text-sm">{format(publishedAt, 'dd MMM yyyy')}</div>
       </div>
       <div className="flex items-center justify-center mt-2">

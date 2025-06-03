@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Button, ButtonProps } from '@/components/ui/button'
 import { Copy, Check as CopyCheck } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+
+import { Button, ButtonProps } from '@/components/ui/button'
 
 type CopyButtonProps = {
   className?: string
@@ -22,14 +23,14 @@ const CopyButton = ({ className = '', textToCopy, buttonConfig = {} }: CopyButto
   }
 
   return (
-    <Button onClick={handleCopy} variant="outline" className={`${className}`} {...buttonConfig}>
-      <AnimatePresence mode="wait" initial={false}>
+    <Button className={`${className}`} variant="outline" onClick={handleCopy} {...buttonConfig}>
+      <AnimatePresence initial={false} mode="wait">
         {copied ? (
           <motion.div
             key="checked"
-            initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             exit={{ opacity: 0, scale: 0.8, rotate: 90 }}
+            initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
             transition={{ duration: 0.1 }}
           >
             <CopyCheck size={20} />
@@ -37,9 +38,9 @@ const CopyButton = ({ className = '', textToCopy, buttonConfig = {} }: CopyButto
         ) : (
           <motion.div
             key="copy"
-            initial={{ opacity: 0, scale: 0.8, rotate: 90 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             exit={{ opacity: 0, scale: 0.8, rotate: -90 }}
+            initial={{ opacity: 0, scale: 0.8, rotate: 90 }}
             transition={{ duration: 0.15 }}
           >
             <Copy size={20} />

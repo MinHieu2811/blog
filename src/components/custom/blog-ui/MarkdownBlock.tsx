@@ -1,4 +1,5 @@
 import React from 'react'
+
 import CodeBlock from './CodeBlock'
 import BlockInfo, { BlockInfoProps } from './BlockInfo'
 import ForwardLink, { ForwardLinkProps } from './ForwardLink'
@@ -6,15 +7,15 @@ import ForwardLink, { ForwardLinkProps } from './ForwardLink'
 const CustomH1 = (props: object) => <h1 className="text-2xl font-bold text-[#0070f3] my-4" {...props} />
 const CustomH2 = (props: { children: string }) => (
   <h2
-    id={(props?.children ?? '')?.toLocaleLowerCase()?.replaceAll(' ', '-')}
     className="text-xl font-semibold my-3"
+    id={(props?.children ?? '')?.toLocaleLowerCase()?.replaceAll(' ', '-')}
     {...props}
   />
 )
 const CustomH3 = (props: { children: string }) => (
   <h3
-    id={(props?.children ?? '')?.toLocaleLowerCase()?.replaceAll(' ', '-')}
     className="text-lg font-medium my-2"
+    id={(props?.children ?? '')?.toLocaleLowerCase()?.replaceAll(' ', '-')}
     {...props}
   />
 )
@@ -34,9 +35,7 @@ const CustomA = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
 )
 
 const CustomForwardLink = (props: ForwardLinkProps) => {
-  return (
-    <ForwardLink {...props} />
-  )
+  return <ForwardLink {...props} />
 }
 
 export const mdxComponents = {

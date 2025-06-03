@@ -1,10 +1,13 @@
 import React, { useCallback } from 'react'
-import BlogTitle from './BlogTitle'
 import { Post } from '@prisma/client'
-import { cn } from '@/lib/utils'
+import { useRouter } from 'next/router'
+
 import ArrowRight from '../icons/ArrowRight'
 import { IconButton } from '../ui/icon-button'
-import { useRouter } from 'next/router'
+
+import BlogTitle from './BlogTitle'
+
+import { cn } from '@/lib/utils'
 
 type BlogListProps = {
   className?: string
@@ -16,7 +19,7 @@ const BlogList = ({ className, posts }: BlogListProps) => {
     <div className={cn('list-post', className)}>
       <h1 className="mb-4 text-xl text-pink-800 font-bold">ARTICLES</h1>
       {posts.map((post) => (
-        <BlogListItem key={post.id} {...post} className='mb-5' />
+        <BlogListItem key={post.id} {...post} className="mb-5" />
       ))}
     </div>
   )
@@ -30,19 +33,19 @@ const BlogListItem = ({ className, slug, title, description }: BlogListItemProps
   const router = useRouter()
   const handleReadMore = useCallback(() => {
     router.push(`/blogs/${slug}`)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug])
+
   return (
     <div className={cn('blog-list-item', className)}>
-      <BlogTitle tag="h4" className='text-xl mb-2' showHover isLink href={`/blogs/${slug}`}>
+      <BlogTitle isLink showHover className="text-xl mb-2" href={`/blogs/${slug}`} tag="h4">
         {title}
       </BlogTitle>
       <p className="text-base text-gray-500">{description}</p>
       <IconButton
-        variant="link"
+        className="text-white px-0 hover:no-underline"
         icon={<ArrowRight size={24} />}
+        variant="link"
         onClick={handleReadMore}
-        className='text-white px-0 hover:no-underline'
       >
         Read More
       </IconButton>

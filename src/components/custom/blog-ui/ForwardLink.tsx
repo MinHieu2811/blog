@@ -10,11 +10,20 @@ export type ForwardLinkProps = {
   icon?: React.ReactNode
 }
 
-const ForwardLink = ({ href, text, openNewTab = true, icon = <ExternalLink size={16} />, className = '' }: 
-  ForwardLinkProps) => {
+const ForwardLink = ({
+  href,
+  text,
+  openNewTab = true,
+  icon = <ExternalLink size={16} />,
+  className = ''
+}: ForwardLinkProps) => {
   return (
-    <Link href={href} {...(openNewTab ? { target: '_blank' } : {})} className={`border-b-2 items-center inline-block ${className}`}>
-      <span className='flex items-center'>
+    <Link
+      href={href}
+      {...(openNewTab ? { target: '_blank' } : {})}
+      className={`border-b-2 items-center inline-block ${className}`}
+    >
+      <span className="flex items-center">
         {text}
         <span className="ml-2">{icon}</span>
       </span>

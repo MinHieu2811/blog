@@ -1,7 +1,9 @@
-import { highlight } from '@/lib/shiki'
 import React, { JSX, useLayoutEffect } from 'react'
 import { BundledLanguage } from 'shiki/bundle/web'
+
 import CopyButton from '../CopyButton'
+
+import { highlight } from '@/lib/shiki'
 
 export type CodeBlockProps = {
   content: any

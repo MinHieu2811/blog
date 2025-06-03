@@ -1,6 +1,8 @@
 import React, { PropsWithChildren } from 'react'
-import Header from './Header'
+
 import { Toaster } from '../ui/sonner'
+
+import Header from './Header'
 import SkyBackground from './SkyBackground'
 
 type LayoutProps = {
