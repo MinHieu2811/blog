@@ -4,13 +4,13 @@ import React from 'react'
 import { Badge } from '../ui/badge'
 import { Post } from '@prisma/client'
 
-type HeadBlogProps = Pick<Post, 'title' | 'cover' | 'publishedAt' | 'tag'> & {
+type HeadBlogProps = Pick<Post, 'title' | 'cover' | 'publishedAt' | 'keyword'> & {
   className?: string
   wordCount?: string
   author?: string
 }
 
-const HeadBlog = ({ className = '', title, wordCount, publishedAt = new Date(), author = 'ChatGPT', tag = [] }: HeadBlogProps) => {
+const HeadBlog = ({ className = '', title, wordCount, publishedAt = new Date(), author = 'ChatGPT', keyword = [] }: HeadBlogProps) => {
   console.count('render HeadBlog')
   return (
     <div className={`${className}`}>
@@ -29,9 +29,9 @@ const HeadBlog = ({ className = '', title, wordCount, publishedAt = new Date(), 
         <div className="text-sm">{format(publishedAt, 'dd MMM yyyy')}</div>
       </div>
       <div className="flex items-center justify-center mt-2">
-        {tag?.map((item) => (
+        {keyword?.map((item) => (
           <Badge key={item} className={`mr-2`} variant="secondary">
-            #{item}
+            {item}
           </Badge>
         ))}
       </div>
