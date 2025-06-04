@@ -1,6 +1,8 @@
 import React from 'react'
-import { cn } from '@/lib/utils'
+
 import { Button, ButtonProps } from './button'
+
+import { cn } from '@/lib/utils'
 import { IconSize } from '@/types/icon'
 
 interface IconProps {
@@ -36,11 +38,11 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     return (
       <Button
         ref={ref}
-        variant={variant}
         className={cn('inline-flex items-center gap-2', className)}
+        variant={variant}
+        onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
         {...props}
       >
         {children}
@@ -52,4 +54,4 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 
 IconButton.displayName = 'IconButton'
 
-export { IconButton } 
+export { IconButton }

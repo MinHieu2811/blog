@@ -15,6 +15,7 @@ const ListingCompo = <T,>({ list = [], messageEmpty, renderItem, className }: Li
       </div>
     )
   }
+
   return <div className={className}>{list?.map((item) => renderItem(item))}</div>
 }
 

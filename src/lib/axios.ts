@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from 'axios'
 // import getConfig from "next/config";
 
 export function AxiosDefault(config?: AxiosRequestConfig) {

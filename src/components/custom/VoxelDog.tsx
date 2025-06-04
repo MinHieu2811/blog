@@ -1,7 +1,8 @@
-import { loadGLTFModel } from '@/lib/three'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+
+import { loadGLTFModel } from '@/lib/three'
 // import { loadGLTFModel } from '../lib/model'
 // import { DogSpinner, DogContainer } from './voxel-dog-loader'
 // import a from '../public/dog.glb'
@@ -20,11 +21,11 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
   const refRenderer = useRef<THREE.WebGLRenderer | null>(null)
   // const urlDogGLB = (process.env.NODE_ENV === 'production' ? 'https://craftzdog.global.ssl.fastly.net/homepage' : '') + '/dog.glb'
   const urlDogGLB = '/dog.glb'
-  console.count('render VoxelDog')
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
     const { current: container } = refContainer
+
     if (container && renderer) {
       const scW = container.clientWidth
       const scH = container.clientHeight
@@ -35,6 +36,7 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
 
   useEffect(() => {
     const { current: container } = refContainer
+
     if (container) {
       const scW = (container?.clientWidth ?? 0) + 200
       const scH = (container?.clientHeight ?? 0) + 200
@@ -43,6 +45,7 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
         antialias: true,
         alpha: true
       })
+
       renderer.setPixelRatio(window?.devicePixelRatio)
       renderer.setSize(scW, scH)
       // renderer.outputEncoding = THREE.sRGBEncoding
@@ -57,13 +60,16 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
       // 8   -> 6
       const scale = scH * 0.005 + 4.8
       const camera = new THREE.OrthographicCamera(-scale, scale, scale, -scale, 0.01, 50000)
+
       camera.position.copy(initialCameraPosition)
       camera.lookAt(target)
 
       const ambientLight = new THREE.AmbientLight(0xcccccc, 1)
+
       scene.add(ambientLight)
 
       const controls = new OrbitControls(camera, renderer.domElement)
+
       controls.autoRotate = true
       controls.target = target
       controls.enableZoom = false
@@ -108,16 +114,28 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize, false)
+
     return () => {
       window.removeEventListener('resize', handleWindowResize, false)
     }
   }, [handleWindowResize])
 
   return (
-    <div className={`mx-auto lg:w-[540px] lg:h-[540px] md:w-[400px] md:h-[400px] w-[240px] h-[240px] relative cursor-grab active:cursor-grabbing voxel-dog ${className}`} ref={refContainer}>
+    <div
+      ref={refContainer}
+      className={`mx-auto lg:w-[540px] lg:h-[540px] md:w-[400px] md:h-[400px] w-[240px] h-[240px] relative cursor-grab active:cursor-grabbing voxel-dog ${className}`}
+    >
       {loading && (
         <div className="flex w-full h-full items-center justify-center z-20">
-          <svg className="size-7 animate-spin ..." viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            className="size-7 animate-spin ..."
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
             <path d="M21 12a9 9 0 1 1-6.219-8.56" />
           </svg>
         </div>

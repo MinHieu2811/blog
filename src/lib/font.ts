@@ -11,4 +11,5 @@ const fontMono = FontMono({
   variable: '--font-mono',
   weight: ['100', '300', '700', '900', '400', '100', '300', '700', '900']
 })
+
 export { fontMono, fontSans }

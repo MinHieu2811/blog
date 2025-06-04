@@ -1,7 +1,8 @@
 import matter from 'gray-matter'
+import { serialize } from 'next-mdx-remote/serialize'
+
 import { supabase } from '@/lib/supabase'
 import { extractHeadings } from '@/utils/extractHeadings'
-import { serialize } from 'next-mdx-remote/serialize'
 
 export type FrontMatter = {
   title?: string
@@ -21,6 +22,7 @@ export async function fetchMdxContent(slug: string) {
 
     if (error) {
       console.error('Error fetching MDX file:', JSON.stringify(error))
+
       return {
         content: '',
         frontmatter: {},
@@ -34,9 +36,11 @@ export async function fetchMdxContent(slug: string) {
     const mdxSource = await serialize(content ?? '')
 
     const headings = extractHeadings(content)
+
     return { content: mdxSource, frontmatter, error, headings }
   } catch (error) {
     console.error('Unexpected error fetching MDX content:', error)
+
     return {
       content: '',
       frontmatter: {},

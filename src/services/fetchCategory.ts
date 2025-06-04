@@ -1,6 +1,6 @@
-import { axiosInstance } from "@/lib/axios"
-import { Category } from "@prisma/client"
+import { Category } from '@prisma/client'
 
+import { axiosInstance } from '@/lib/axios'
 
 export const fetchCategory = async (): Promise<Category[]> => {
   try {

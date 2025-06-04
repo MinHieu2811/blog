@@ -1,5 +1,6 @@
-import { axiosInstance } from '@/lib/axios'
 import { Post } from '@prisma/client'
+
+import { axiosInstance } from '@/lib/axios'
 
 export type HomeBlogs = {
   posts: Post[]

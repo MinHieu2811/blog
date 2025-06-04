@@ -13,7 +13,6 @@ type TableOfContentProps = {
 const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
   const [activeId, setActiveId] = useState<string>('')
   const router = useRouter()
-  console.count('render TableOfContent')
   const transformedHeading = useMemo(
     () =>
       headings
@@ -67,6 +66,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
     event.preventDefault()
 
     const section = document.getElementById(id)
+
     if (section) {
       section?.scrollIntoView({
         block: 'start',
@@ -74,6 +74,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
       })
     }
   }
+
   return (
     <div className={`sticky ${className} right-0 top-24`}>
       <p className="ml-4 mb-2 text-lg font-bold">TABLE OF CONTENT</p>
@@ -87,19 +88,22 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
             >
               {heading?.query === activeId && (
                 <motion.div
-                  layoutId="activeIndicator"
-                  className={`active-indicator`}
-                  initial={{ opacity: 0, x: -15 }}
                   animate={{ opacity: 1, x: 0 }}
+                  className="active-indicator"
+                  initial={{ opacity: 0, x: -15 }}
+                  layoutId="activeIndicator"
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 />
               )}
-              <p
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+              <span
                 className={`toc-item ${heading?.query === activeId ? 'active' : ''}`}
+                role="button"
+                tabIndex={0}
                 onClick={(e) => handleScroll(e, heading?.query)}
               >
                 {heading?.text}
-              </p>
+              </span>
             </li>
           ))}
         </ul>

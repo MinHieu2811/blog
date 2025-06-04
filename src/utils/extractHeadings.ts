@@ -1,6 +1,6 @@
-import { remark } from "remark";
-import remarkMdx from "remark-mdx";
-import { visit } from "unist-util-visit";
+import { remark } from 'remark'
+import remarkMdx from 'remark-mdx'
+import { visit } from 'unist-util-visit'
 
 // type ParentTree = {
 //   type: 'heading' | 'text'
@@ -25,13 +25,17 @@ type Position = {
 }
 
 export const extractHeadings = (mdxContent: string) => {
-  const headings: Array<{ text: string; level: number }> = [];
-  const tree = remark().use(remarkMdx).parse(mdxContent);
+  const headings: Array<{ text: string; level: number }> = []
+  const tree = remark().use(remarkMdx).parse(mdxContent)
 
-  visit(tree, "heading", (node: any) => {
-    const text = node?.children?.filter((i: ChildTree) => i?.type !== 'heading')?.map((child: ChildTree) => child?.value).join("");
-    headings.push({ text, level: node?.depth });
-  });
+  visit(tree, 'heading', (node: any) => {
+    const text = node?.children
+      ?.filter((i: ChildTree) => i?.type !== 'heading')
+      ?.map((child: ChildTree) => child?.value)
+      .join('')
+
+    headings.push({ text, level: node?.depth })
+  })
 
   return headings
 }

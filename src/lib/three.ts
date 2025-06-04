@@ -2,12 +2,9 @@ import { Mesh, Object3D, Object3DEventMap, Scene } from 'three'
 // import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-export function loadGLTFModel(
-  scene: Scene,
-  glbPath: string,
-  options = { receiveShadow: true, castShadow: true }
-) {
+export function loadGLTFModel(scene: Scene, glbPath: string, options = { receiveShadow: true, castShadow: true }) {
   const { receiveShadow, castShadow } = options
+
   return new Promise((resolve, reject) => {
     const loader = new GLTFLoader()
 
@@ -15,6 +12,7 @@ export function loadGLTFModel(
       glbPath,
       (gltf: any) => {
         const obj = gltf.scene
+
         obj.name = 'dog'
         obj.position.y = 0
         obj.position.x = 0

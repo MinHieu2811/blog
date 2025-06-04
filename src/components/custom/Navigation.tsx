@@ -31,6 +31,7 @@ export default function NavBar() {
     <nav className="flex gap-2 relative justify-center w-full z-[1]  rounded-lg">
       {navItems.map((item) => {
         const isActive = checkActivePath(pathname, item?.path ?? '')
+
         return (
           <Link
             key={item?.path}
@@ -39,15 +40,15 @@ export default function NavBar() {
             }`}
             data-active={isActive}
             href={item.path}
-            onMouseOver={() => setHoveredPath(item?.path)}
             onMouseLeave={() => setHoveredPath(pathname)}
+            onMouseOver={() => setHoveredPath(item?.path)}
           >
             <span>{item?.name}</span>
             {checkActivePath(hoveredPath, item?.path ?? '') && (
               <motion.div
+                aria-hidden="true"
                 className="absolute bottom-0 left-0 h-full bg-stone-800/80 rounded-md -z-10"
                 layoutId="navbar"
-                aria-hidden="true"
                 style={{
                   width: '100%'
                 }}

@@ -1,5 +1,6 @@
-import { mongo } from '@/lib/prisma'
 import { NextApiRequest, NextApiResponse } from 'next'
+
+import { mongo } from '@/lib/prisma'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         slug: true,
         title: true,
         description: true,
-        content: true,
+        content: true
       }
     })
 

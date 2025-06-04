@@ -1,10 +1,13 @@
-import { fetchHomeBlogs, HomeBlogs } from '@/services/fetchHomeBlogs'
-import ErrorPage from './_error'
-import { fetchCategory } from '@/services/fetchCategory'
+import Link from 'next/link'
 import { Category } from '@prisma/client'
+
+import ErrorPage from './_error'
+
+import { fetchHomeBlogs, HomeBlogs } from '@/services/fetchHomeBlogs'
+import { fetchCategory } from '@/services/fetchCategory'
 import BlogList from '@/components/custom/BlogList'
 import { Badge } from '@/components/ui/badge'
-import Link from 'next/link'
+
 type Props = HomeBlogs & {
   status?: number
   error?: string
@@ -12,18 +15,21 @@ type Props = HomeBlogs & {
 }
 
 export default function Home({ status, posts, categories = [] }: Props) {
-  if (status === 404) return <ErrorPage statusCode={404} message="Post not found." />
-  if (status === 500) return <ErrorPage statusCode={500} message="Internal server error." />
+  if (status === 404) return <ErrorPage message="Post not found." statusCode={404} />
+  if (status === 500) return <ErrorPage message="Internal server error." statusCode={500} />
+
   return (
     <div className="container">
       <div className="flex gap-9">
-        <BlogList posts={posts} className="w-3/4" />
+        <BlogList className="w-3/4" posts={posts} />
         <div className="w-3/12">
           <h1 className="mb-4 text-xl text-pink-800 font-bold">CATEGORIES</h1>
           <div className="flex flex-row flex-wrap gap-2">
             {categories?.map((category) => (
-              <Badge key={category?.id ?? ''} variant="outline" className="inline-flex w-fit px-2 py-1">
-                <Link href={`/category/${category?.name}`} className='text-base'>{category?.name}</Link>
+              <Badge key={category?.id ?? ''} className="inline-flex w-fit px-2 py-1" variant="outline">
+                <Link className="text-base" href={`/category/${category?.name}`}>
+                  {category?.name}
+                </Link>
               </Badge>
             ))}
           </div>
@@ -37,6 +43,7 @@ export async function getServerSideProps() {
   try {
     const listBlogs = await fetchHomeBlogs()
     const listCategory = await fetchCategory()
+
     return {
       props: {
         posts: listBlogs?.posts ?? [],
@@ -46,6 +53,7 @@ export async function getServerSideProps() {
     }
   } catch (error) {
     console.error(error)
+
     return {
       props: {
         status: 500,

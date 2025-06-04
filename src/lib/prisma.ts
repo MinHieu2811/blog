@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client'
 
-const mongo = new PrismaClient();
-export { mongo };
+const mongo = new PrismaClient()
+
+export { mongo }

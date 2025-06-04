@@ -1,12 +1,13 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { useMemo } from 'react'
+
 import { fetchMdxContent, FrontMatter } from '@/services/fetchMdxFiles'
 import ErrorPage from '@/pages/_error'
 import { mongo } from '@/lib/prisma'
 import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
 import HeadBlog from '@/components/custom/HeadBlog'
 import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
-import { useMemo } from 'react'
 import TableOfContent from '@/components/custom/TableOfContent'
 
 interface BlogPostProps {
@@ -19,25 +20,27 @@ interface BlogPostProps {
 export default function BlogPost({ status, mdxSource, frontmatter, headings }: BlogPostProps) {
   const estimatedTime: string = useMemo(() => {
     const textContent = mdxSource?.compiledSource?.replace(/<[^>]*>/g, '')
+
     return estimatedReadingTime(textContent)
   }, [mdxSource])
 
-  if (status === 404) return <ErrorPage statusCode={404} message="Post not found." />
-  if (status === 500) return <ErrorPage statusCode={500} message="Internal server error." />
+  if (status === 404) return <ErrorPage message="Post not found." statusCode={404} />
+  if (status === 500) return <ErrorPage message="Internal server error." statusCode={500} />
 
   return (
     <article>
       <HeadBlog
+        author={frontmatter?.author}
+        cover={frontmatter?.cover ?? ''}
+        keyword={frontmatter?.tag ?? []}
+        publishedAt={new Date(frontmatter?.date ?? '')}
         title={frontmatter?.title ?? ''}
         wordCount={estimatedTime}
-        author={frontmatter?.author}
-        publishedAt={new Date(frontmatter?.date ?? '')}
-        cover={frontmatter?.cover ?? ''}
-        tag={frontmatter?.tag ?? []}
       />
       <div className="flex mt-4">
         <div className="flex-1">
-          <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} /></div>
+          <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
+        </div>
         <div className="relative">
           <TableOfContent headings={headings} />
         </div>
@@ -50,6 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await mongo.post.findMany({ select: { slug: true } })
 
   const paths = posts.map((post) => ({ params: { slug: post?.slug ?? '' } }))
+
   return { paths, fallback: true }
 }
 
@@ -88,6 +92,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (error instanceof Error) {
       console.log('Error: ', error.stack)
     }
+
     return {
       props: {
         status: 500,
