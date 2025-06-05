@@ -1,5 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { useMemo } from 'react'
 
 import { fetchMdxContent, FrontMatter } from '@/services/fetchMdxFiles'
@@ -8,6 +8,8 @@ import { mongo } from '@/lib/prisma'
 // import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
 import HeadBlog from '@/components/custom/HeadBlog'
 import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
+import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
+import TableOfContent from '@/components/custom/TableOfContent'
 // import TableOfContent from '@/components/custom/TableOfContent'
 
 interface BlogPostProps {
@@ -24,6 +26,8 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
     return estimatedReadingTime(textContent)
   }, [mdxSource])
 
+  console.log('frontmatter', frontmatter)
+
   if (status === 404) return <ErrorPage message="Post not found." statusCode={404} />
   if (status === 500) return <ErrorPage message="Internal server error." statusCode={500} />
 
@@ -37,14 +41,14 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
         title={frontmatter?.title ?? ''}
         wordCount={estimatedTime}
       />
-      {/* <div className="flex mt-4">
+      <div className="flex mt-4">
         <div className="flex-1">
           <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
         </div>
         <div className="relative">
           <TableOfContent headings={headings} />
         </div>
-      </div> */}
+      </div>
     </article>
   )
 }
