@@ -40,9 +40,9 @@ const BlogListItem = ({ className, slug, title, description }: BlogListItemProps
       <BlogTitle isLink showHover className="text-xl mb-2" href={`/blogs/${slug}`} tag="h4">
         {title}
       </BlogTitle>
-      <p className="text-base text-gray-500">{description}</p>
+      <p className="text-base text-gray-500 text-justify">{description}</p>
       <IconButton
-        className="text-white px-0 hover:no-underline"
+        className="text-blue-500 px-0 text-base hover:no-underline"
         icon={<ArrowRight size={24} />}
         variant="link"
         onClick={handleReadMore}

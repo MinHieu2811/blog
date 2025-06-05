@@ -25,6 +25,7 @@ model Post {
 
 model Category {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String     @unique
   name      String
   posts     Post[]
 }

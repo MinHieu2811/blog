@@ -11,12 +11,8 @@ const Header = () => {
           <Link href="/">
             <span className="mr-5">LOGO</span>
           </Link>
-          {/* <div className="navigation">
-            <Navigation />
-            </div> */}
         </div>
         <div className="search-bar flex-1 flex justify-end">
-          {/* <SearchBar /> */}
           <SeachDrawer />
         </div>
       </div>
