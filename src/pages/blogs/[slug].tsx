@@ -17,9 +17,10 @@ interface BlogPostProps {
   mdxSource: MDXRemoteSerializeResult
   frontmatter: FrontMatter | null
   headings: Array<{ text: string; level: number }>
+  slug: string
 }
 
-export default function BlogPost({ status, mdxSource, frontmatter, headings }: BlogPostProps) {
+export default function BlogPost({ status, mdxSource, frontmatter, headings, slug }: BlogPostProps) {
   const estimatedTime: string = useMemo(() => {
     const textContent = mdxSource?.compiledSource?.replace(/<[^>]*>/g, '')
 
@@ -27,6 +28,10 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
   }, [mdxSource])
 
   console.log('frontmatter', frontmatter)
+
+  console.log('slug', slug)
+
+  if (!frontmatter) return <></>
 
   if (status === 404) return <ErrorPage message="Post not found." statusCode={404} />
   if (status === 500) return <ErrorPage message="Internal server error." statusCode={500} />
