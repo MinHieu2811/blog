@@ -1,14 +1,14 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { useMemo } from 'react'
 
 import { fetchMdxContent, FrontMatter } from '@/services/fetchMdxFiles'
 import ErrorPage from '@/pages/_error'
 import { mongo } from '@/lib/prisma'
-import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
+// import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
 import HeadBlog from '@/components/custom/HeadBlog'
 import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
-import TableOfContent from '@/components/custom/TableOfContent'
+// import TableOfContent from '@/components/custom/TableOfContent'
 
 interface BlogPostProps {
   status: number
@@ -37,14 +37,14 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
         title={frontmatter?.title ?? ''}
         wordCount={estimatedTime}
       />
-      <div className="flex mt-4">
+      {/* <div className="flex mt-4">
         <div className="flex-1">
           <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
         </div>
         <div className="relative">
           <TableOfContent headings={headings} />
         </div>
-      </div>
+      </div> */}
     </article>
   )
 }
