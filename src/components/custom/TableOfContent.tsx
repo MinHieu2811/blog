@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type TableOfContentProps = {
   className?: string
@@ -10,22 +10,22 @@ type TableOfContentProps = {
   }>
 }
 
-const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
+const TableOfContent = ({ className }: TableOfContentProps) => {
   const [activeId, setActiveId] = useState<string>('')
   const router = useRouter()
-  const transformedHeading = useMemo(
-    () =>
-      headings
-        ?.filter((head) => head?.level > 1)
-        ?.map((i) => ({
-          ...i,
-          query: i?.text
-            ?.split(' ')
-            ?.map((e) => e?.toLocaleLowerCase())
-            ?.join('-')
-        })),
-    [headings]
-  )
+  // const transformedHeading = useMemo(
+  //   () =>
+  //     headings
+  //       ?.filter((head) => head?.level > 1)
+  //       ?.map((i) => ({
+  //         ...i,
+  //         query: i?.text
+  //           ?.split(' ')
+  //           ?.map((e) => e?.toLocaleLowerCase())
+  //           ?.join('-')
+  //       })),
+  //   [headings]
+  // )
 
   useEffect(() => {
     const headingElements = Array.from(document.querySelectorAll('h2, h3, h4'))
@@ -62,25 +62,25 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
     }
   }, [router?.asPath])
 
-  const handleScroll = (event: React.MouseEvent, id: string) => {
-    event.preventDefault()
+  // const handleScroll = (event: React.MouseEvent, id: string) => {
+  //   event.preventDefault()
 
-    const section = document.getElementById(id)
+  //   const section = document.getElementById(id)
 
-    if (section) {
-      section?.scrollIntoView({
-        block: 'start',
-        behavior: 'smooth'
-      })
-    }
-  }
+  //   if (section) {
+  //     section?.scrollIntoView({
+  //       block: 'start',
+  //       behavior: 'smooth'
+  //     })
+  //   }
+  // }
 
   return (
     <div className={`sticky ${className} right-0 top-24`}>
       <p className="ml-4 mb-2 text-lg font-bold">TABLE OF CONTENT</p>
       <nav className="toc">
         <ul className="toc-item-wrapper">
-          {transformedHeading?.map((heading, index) => (
+          {/* {[]?.map((heading, index) => (
             <li
               key={index}
               className={`cursor-pointer toc-item-wrapper mb-2 px-1 ${activeId === heading?.query ? 'active' : ''}`}
@@ -95,7 +95,6 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 />
               )}
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
               <span
                 className={`toc-item ${heading?.query === activeId ? 'active' : ''}`}
                 role="button"
@@ -105,7 +104,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
                 {heading?.text}
               </span>
             </li>
-          ))}
+          ))} */}
         </ul>
       </nav>
     </div>

@@ -1,13 +1,13 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-// import { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { fetchMdxContent, FrontMatter } from '@/services/fetchMdxFiles'
 import ErrorPage from '@/pages/_error'
 import { mongo } from '@/lib/prisma'
 import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
 import HeadBlog from '@/components/custom/HeadBlog'
-// import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
+import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
 import TableOfContent from '@/components/custom/TableOfContent'
 
 interface BlogPostProps {
@@ -18,11 +18,11 @@ interface BlogPostProps {
 }
 
 export default function BlogPost({ status, mdxSource, frontmatter, headings }: BlogPostProps) {
-  // const estimatedTime: string = useMemo(() => {
-  //   const textContent = mdxSource?.compiledSource?.replace(/<[^>]*>/g, '')
+  const estimatedTime: string = useMemo(() => {
+    const textContent = mdxSource?.compiledSource?.replace(/<[^>]*>/g, '')
 
-  //   return estimatedReadingTime(textContent)
-  // }, [mdxSource])
+    return estimatedReadingTime(textContent)
+  }, [mdxSource])
 
   if (status === 404) return <ErrorPage message="Post not found." statusCode={404} />
   if (status === 500) return <ErrorPage message="Internal server error." statusCode={500} />
@@ -35,7 +35,7 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
         keyword={frontmatter?.tag ?? []}
         publishedAt={new Date(frontmatter?.date ?? '')}
         title={frontmatter?.title ?? ''}
-        wordCount={'8 mins'}
+        wordCount={estimatedTime}
       />
       <div className="flex mt-4">
         <div className="flex-1">
