@@ -33,8 +33,8 @@ const HeadBlog = ({
           <></>
         )}
         <div className="text-sm">{wordCount}</div>
-        <Separator className="mx-2" orientation="vertical" />
-        <div className="text-sm">{format(publishedAt ?? new Date(), 'dd MMM yyyy')}</div>
+        {/* <Separator className="mx-2" orientation="vertical" />
+        <div className="text-sm">{format(publishedAt ?? new Date(), 'dd MMM yyyy')}</div> */}
       </div>
       <div className="flex items-center justify-center mt-2">
         {keyword?.map((item) => (

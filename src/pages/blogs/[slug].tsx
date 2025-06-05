@@ -83,13 +83,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           status: 500,
           mdxSource: '',
           frontmatter,
-          headings: []
+          headings: [],
+          slug: slug
         }
       }
     }
 
     return {
-      props: { mdxSource: data?.content, frontmatter: frontmatter, headings: data?.headings ?? [] },
+      props: {
+        mdxSource: data?.content,
+        frontmatter: frontmatter,
+        headings: data?.headings ?? [],
+        slug: slug
+      },
       revalidate: 60 // ISR
     }
   } catch (error) {
@@ -102,7 +108,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         status: 500,
         mdxSource: '',
         frontmatter: {},
-        headings: []
+        headings: [],
+        slug: ''
       }
     }
   }
