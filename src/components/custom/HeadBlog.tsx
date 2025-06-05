@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 import React from 'react'
 import { Post } from '@prisma/client'
 
@@ -16,7 +16,7 @@ const HeadBlog = ({
   className = '',
   title,
   wordCount,
-  publishedAt = new Date(),
+  // publishedAt = new Date(),
   author = 'ChatGPT',
   keyword = []
 }: HeadBlogProps) => {
@@ -33,8 +33,8 @@ const HeadBlog = ({
           <></>
         )}
         <div className="text-sm">{wordCount}</div>
-        <Separator className="mx-2" orientation="vertical" />
-        <div className="text-sm">{format(publishedAt ?? new Date(), 'dd MMM yyyy')}</div>
+        {/* <Separator className="mx-2" orientation="vertical" />
+        <div className="text-sm">{format(publishedAt ?? new Date(), 'dd MMM yyyy')}</div> */}
       </div>
       <div className="flex items-center justify-center mt-2">
         {keyword?.map((item) => (
