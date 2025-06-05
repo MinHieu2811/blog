@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 
 export function AxiosDefault(config?: AxiosRequestConfig) {
   return axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: 'https://blog-nine-rho-52.vercel.appupda/api',
     timeout: 60000,
     withCredentials: true,
     ...config
