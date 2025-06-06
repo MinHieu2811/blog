@@ -18,10 +18,6 @@ export default function Home({ status, posts, categories = [] }: Props) {
   if (status === 404) return <ErrorPage message="Post not found." statusCode={404} />
   if (status === 500) return <ErrorPage message="Internal server error." statusCode={500} />
 
-  console.log('posts', posts)
-
-  console.log('categories', categories)
-
   return (
     <div className="container">
       <div className="flex gap-11">

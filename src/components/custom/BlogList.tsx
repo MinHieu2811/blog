@@ -37,7 +37,7 @@ const BlogListItem = ({ className, slug, title, description }: BlogListItemProps
 
   return (
     <div className={cn('blog-list-item', className)}>
-      <BlogTitle isLink showHover className="text-xl mb-2" href={`/blogs/${slug}`} tag="h4">
+      <BlogTitle isLink showHover className="text-xl mb-2" href={`/${slug}`} tag="h4">
         {title}
       </BlogTitle>
       <p className="text-base text-gray-500 text-justify">{description}</p>
