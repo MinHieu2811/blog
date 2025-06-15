@@ -33,8 +33,8 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
         title={frontmatter?.title ?? ''}
         wordCount={frontmatter?.estimatedTime ?? ''}
       />
-      <div className="flex mt-4">
-        <div className="flex-1">
+      <div className="flex mt-4 gap-11">
+        <div className="flex-1 text-justify">
           <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
         </div>
         <div className="relative">

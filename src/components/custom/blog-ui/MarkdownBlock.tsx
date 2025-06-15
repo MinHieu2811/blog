@@ -7,14 +7,14 @@ import ForwardLink, { ForwardLinkProps } from './ForwardLink'
 const CustomH1 = (props: object) => <h1 className="text-2xl font-bold text-[#0070f3] my-4" {...props} />
 const CustomH2 = (props: { children: string }) => (
   <h2
-    className="text-xl font-semibold my-3"
+    className="text-xl font-semibold my-3 text-[#0070f3]"
     id={(props?.children ?? '')?.toLocaleLowerCase()?.replaceAll(' ', '-')}
     {...props}
   />
 )
 const CustomH3 = (props: { children: string }) => (
   <h3
-    className="text-lg font-medium my-2"
+    className="text-lg font-medium my-2 text-[#0070f3]"
     id={(props?.children ?? '')?.toLocaleLowerCase()?.replaceAll(' ', '-')}
     {...props}
   />
@@ -23,7 +23,7 @@ const CustomP = (props: object) => <p className="text-base leading-relaxed my-2"
 const CustomBlockquote = (props: object) => (
   <blockquote className="border-l-4 border-gray-500 italic pl-4 my-4 text-gray-600" {...props} />
 )
-const CustomCode = (props: object) => <code className="bg-gray-100 text-red-500 px-1 py-0.5 rounded" {...props} />
+const CustomCode = (props: object) => <code className="bg-gray-800 text-gray-100 px-2 py-1 rounded" {...props} />
 const CustomPre = (props: any) => <CodeBlock {...props} content={props?.children} />
 
 const CustomBlockInfo = (props: BlockInfoProps) => {
