@@ -8,6 +8,7 @@ import HeadBlog from '@/components/custom/HeadBlog'
 import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
 import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
 import TableOfContent from '@/components/custom/TableOfContent'
+import BlogHead from '@/components/custom/BlogHead'
 
 interface BlogPostProps {
   status: number
@@ -24,24 +25,31 @@ export default function BlogPost({ status, mdxSource, frontmatter, headings }: B
   if (status === 500) return <ErrorPage message="Internal server error." statusCode={500} />
 
   return (
-    <article>
-      <HeadBlog
-        author={frontmatter?.author}
+    <>
+      <BlogHead
         cover={frontmatter?.cover ?? ''}
-        keyword={frontmatter?.tag ?? []}
-        publishedAt={new Date(frontmatter?.date ?? '')}
+        description={frontmatter?.description ?? ''}
         title={frontmatter?.title ?? ''}
-        wordCount={frontmatter?.estimatedTime ?? ''}
       />
-      <div className="flex mt-4 gap-11">
-        <div className="flex-1 text-justify">
-          <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
+      <article>
+        <HeadBlog
+          author={frontmatter?.author}
+          cover={frontmatter?.cover ?? ''}
+          keyword={frontmatter?.tag ?? []}
+          publishedAt={new Date(frontmatter?.date ?? '')}
+          title={frontmatter?.title ?? ''}
+          wordCount={frontmatter?.estimatedTime ?? ''}
+        />
+        <div className="flex mt-4 gap-11">
+          <div className="flex-1 text-justify">
+            <MDXRemote {...(mdxSource ?? {})} components={mdxComponents} />
+          </div>
+          <div className="relative">
+            <TableOfContent headings={headings} />
+          </div>
         </div>
-        <div className="relative">
-          <TableOfContent headings={headings} />
-        </div>
-      </div>
-    </article>
+      </article>
+    </>
   )
 }
 

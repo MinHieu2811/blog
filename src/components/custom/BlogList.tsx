@@ -14,13 +14,11 @@ type BlogListProps = {
   posts: Post[]
 }
 
-const BlogList = ({ className, posts }: BlogListProps) => {
+const BlogList = ({ className, posts = [] }: BlogListProps) => {
   return (
     <div className={cn('list-post', className)}>
       <h1 className="mb-4 text-xl text-pink-800 font-bold">ARTICLES</h1>
-      {posts.map((post) => (
-        <BlogListItem key={post.id} {...post} className="mb-5" />
-      ))}
+      {posts?.map((post) => <BlogListItem key={post?.id} {...post} className="mb-5" />)}
     </div>
   )
 }
