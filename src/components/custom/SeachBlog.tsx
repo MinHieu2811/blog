@@ -108,7 +108,7 @@ const SeachDrawer = () => {
                       key={item?.id}
                       className={`${index !== result?.length - 1 ? 'border-b border-slate-700' : ''} p-2`}
                     >
-                      <Link className="text-xl font-semibold" href={`/blogs/${item?.slug}`}>
+                      <Link className="text-xl font-semibold" href={`/${item?.slug}`}>
                         {item?.title ?? ''}
                       </Link>
                       <div className="text-sm text-muted-foreground">
