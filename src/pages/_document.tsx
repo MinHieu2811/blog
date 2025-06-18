@@ -7,7 +7,7 @@ export default function Document() {
         <meta content="Blog about technology, programming, and other topics" name="description" />
         <meta content="blog, technology, programming, other topics" name="keywords" />
         <meta content="John Doe" name="author" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        {/* <meta content="width=device-width, initial-scale=1.0" name="viewport" /> */}
         <meta content="index, follow" name="robots" />
         <meta content="index, follow" name="googlebot" />
         <meta content="notranslate" name="google" />
