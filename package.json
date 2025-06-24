@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "postinstall": "prisma generate",
-    "build": "prisma generate && next build",
+    "postinstall": "prisma generate --schema=./prisma/blog.schema.prisma && prisma generate --schema=./prisma/tracking.schema.prisma",
+    "build": "prisma generate --schema=./prisma/blog.schema.prisma && prisma generate --schema=./prisma/tracking.schema.prisma && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "prisma generate --schema=./prisma/blog.schema.prisma && prisma generate --schema=./prisma/tracking.schema.prisma",
+    "db:push": "prisma db push --schema=./prisma/blog.schema.prisma && prisma db push --schema=./prisma/tracking.schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
@@ -22,6 +24,7 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@supabase/supabase-js": "^2.48.1",
     "axios": "^1.8.3",
+    "bull": "^4.16.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -45,6 +48,7 @@
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.175.0",
     "unist-util-visit": "^5.0.0",
+    "uuid": "^11.1.0",
     "vaul": "^1.1.2"
   },
   "devDependencies": {

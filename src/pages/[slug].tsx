@@ -9,6 +9,7 @@ import { estimatedReadingTime } from '@/utils/estimatedReadingTime'
 import { mdxComponents } from '@/components/custom/blog-ui/MarkdownBlock'
 import TableOfContent from '@/components/custom/TableOfContent'
 import BlogHead from '@/components/custom/BlogHead'
+import withBlogTracking from '@/components/custom/withTrackingService'
 
 interface BlogPostProps {
   status: number
@@ -18,7 +19,7 @@ interface BlogPostProps {
   slug: string
 }
 
-export default function BlogPost({ status, mdxSource, frontmatter, headings }: BlogPostProps) {
+const BlogPost = ({ status, mdxSource, frontmatter, headings }: BlogPostProps) => {
   if (!frontmatter) return <></>
 
   if (status === 404) return <ErrorPage message="Post not found." statusCode={404} />
@@ -118,3 +119,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
   }
 }
+
+export default withBlogTracking(BlogPost)

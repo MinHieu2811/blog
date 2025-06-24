@@ -1,15 +1,15 @@
-
-generator client {
+generator blogClient {
   provider = "prisma-client-js"
+  output = "../src/lib/blog-client"
 }
 
-datasource db {
+datasource blog {
   provider  = "mongodb"
   url       = env("MONGO_DATABASE_URL")
 }
 
 model Post {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @blog.ObjectId
   cover     String
   slug      String     @unique
   title     String
@@ -19,12 +19,12 @@ model Post {
   status    PostStatus
   publishedAt DateTime   @default(now())
   updatedAt DateTime?  @updatedAt
-  categoryId  String     @db.ObjectId
+  categoryId  String     @blog.ObjectId
   category    Category   @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @blog.ObjectId
   slug      String     @unique
   name      String
   posts     Post[]
