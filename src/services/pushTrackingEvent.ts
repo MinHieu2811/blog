@@ -37,6 +37,13 @@ const processQueue = async () => {
 const sendSingleEvent = async (data: TrackingEventData, retries = 3): Promise<void> => {
   for (let i = 0; i < retries; i++) {
     try {
+      // Skip if missing required fields
+      if (!data.eventName || !data.slug) {
+        console.error('Missing required fields: eventName or slug')
+
+        break
+      }
+
       const response = await axiosInstance.post('/tracking', data, {
         timeout: 5000 // 5 second timeout
       })

@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "worker": "node src/worker.js",
+    "dev:all": "concurrently \"npm run dev\" \"npm run worker\"",
     "postinstall": "prisma generate --schema=./prisma/blog.schema.prisma && prisma generate --schema=./prisma/tracking.schema.prisma",
     "build": "prisma generate --schema=./prisma/blog.schema.prisma && prisma generate --schema=./prisma/tracking.schema.prisma && next build",
     "start": "next start",
@@ -57,6 +59,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.175.0",
+    "concurrently": "^9.2.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "15.0.4",
     "eslint-config-prettier": "9.1.0",

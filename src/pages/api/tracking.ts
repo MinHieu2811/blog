@@ -1,28 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Queue from 'bull'
 
-// Test Redis connection
-const testRedisConnection = async () => {
-  try {
-    const testQueue = new Queue('test-queue', {
-      redis: process.env.REDIS_ENDPOINT || 'redis://127.0.0.1:6379',
-      defaultJobOptions: {
-        removeOnComplete: 1,
-        removeOnFail: 1
-      }
-    })
-
-    await testQueue.add('test', { test: true })
-    await testQueue.close()
-
-    return true
-  } catch (error) {
-    console.error('Redis connection test failed:', error)
-
-    return false
-  }
-}
-
+// Create a simple queue instance for adding jobs
 const trackingQueue = new Queue('tracking-queue', {
   redis: process.env.REDIS_ENDPOINT || 'redis://127.0.0.1:6379',
   defaultJobOptions: {
@@ -36,15 +15,6 @@ const trackingQueue = new Queue('tracking-queue', {
   }
 })
 
-// Add connection event listeners
-trackingQueue.on('error', (error) => {
-  console.error('Queue error:', error)
-})
-
-trackingQueue.on('ready', () => {
-  console.log('Queue is ready')
-})
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' })
@@ -52,25 +22,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { data, slug, eventName, sessionId } = req.body
 
-  console.log('Received request:', { data, slug, eventName, sessionId })
-  console.log('Redis endpoint:', process.env.REDIS_ENDPOINT || 'redis://127.0.0.1:6379')
+  console.log('📊 Received tracking request:', { eventName, slug, sessionId })
 
   if (!eventName || !slug) {
     return res.status(400).json({ message: 'Missing required fields: eventName and slug' })
   }
 
   try {
-    // Test Redis connection first
-    const isRedisConnected = await testRedisConnection()
-
-    if (!isRedisConnected) {
-      console.error('Redis connection failed')
-
-      return res.status(500).json({
-        message: 'Redis connection failed',
-        error: 'Cannot connect to Redis server'
-      })
-    }
+    console.log('➕ Adding job to queue:', { eventName, slug, sessionId })
 
     await trackingQueue.add(
       {
@@ -84,16 +43,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     )
 
-    console.log('Added job to queue successfully')
+    console.log('✅ Added job to queue successfully')
     res.status(200).json({ message: 'OK' })
   } catch (error) {
-    console.error('Failed to add job to queue:', error)
+    console.error('❌ Failed to add job to queue:', error)
 
-    // More detailed error response
     res.status(500).json({
       message: 'Internal server error',
-      error: error instanceof Error ? error.message : 'Unknown error',
-      details: error instanceof Error ? error.stack : undefined
+      error: error instanceof Error ? error.message : 'Unknown error'
     })
   }
 }

@@ -27,12 +27,12 @@ const createQueue = (retries = 3): Promise<Queue.Queue> => {
       })
 
       queue.on('ready', () => {
-        console.log('Successfully connected to Redis')
+        console.log('✅ Successfully connected to Redis')
         resolve(queue)
       })
 
       queue.on('error', (error) => {
-        console.error(`Redis connection error (attempt ${attempt}):`, error)
+        console.error(`❌ Redis connection error (attempt ${attempt}):`, error)
 
         if (attempt >= retries) {
           reject(new Error(`Failed to connect to Redis after ${retries} attempts`))
@@ -47,83 +47,105 @@ const createQueue = (retries = 3): Promise<Queue.Queue> => {
 }
 
 let trackingQueue: Queue.Queue | null = null
+let isInitialized = false
+let initializationPromise: Promise<void> | null = null
 
 const initializeQueue = async () => {
-  try {
-    trackingQueue = await createQueue()
+  if (initializationPromise) {
+    await initializationPromise
 
-    trackingQueue.process(5, async (job) => {
-      const { data, slug, eventName, sessionId } = job.data
-      const jobId = job.id
+    return
+  }
 
-      console.log(`Processing job ${jobId}: ${eventName} for blog ${slug}`)
+  if (isInitialized) {
+    return
+  }
 
-      try {
-        if (!slug || !eventName) {
-          throw new Error('Missing required fields: slug or eventName')
-        }
+  initializationPromise = (async () => {
+    try {
+      console.log('🔄 Initializing queue...')
+      trackingQueue = await createQueue()
 
-        await Database.tracking.userTrackingEvent.create({
-          data: {
-            id: uuidv4(),
-            sessionId: sessionId || uuidv4(),
-            blogId: slug,
-            eventType: eventName,
-            eventData: data || {},
-            timestamp: new Date()
-          }
-        })
+      console.log('✅ Queue initialized')
 
-        console.log(`Job ${jobId} completed successfully`)
-      } catch (error) {
-        console.error(`Job ${jobId} failed:`, error)
+      trackingQueue.process(5, async (job) => {
+        const { data, slug, eventName, sessionId } = job.data
+        const jobId = job.id
+
+        console.log(`🔄 Processing job ${jobId}: ${eventName} for blog ${slug}`)
 
         try {
-          await Database.tracking.errorLog.create({
+          if (!slug || !eventName) {
+            throw new Error('Missing required fields: slug or eventName')
+          }
+
+          await Database.tracking.userTrackingEvent.create({
             data: {
               id: uuidv4(),
-              error: error instanceof Error ? error.message : 'Unknown error',
-              event: eventName ?? 'Unknown event',
-              eventData: {
-                ...data,
-                jobId,
-                slug,
-                sessionId,
-                originalError: error instanceof Error ? error.stack : error
-              },
+              sessionId: sessionId || uuidv4(),
+              blogId: slug,
+              eventType: eventName,
+              eventData: data || {},
               timestamp: new Date()
             }
           })
-        } catch (logError) {
-          console.error('Failed to log error to database:', logError)
+
+          console.log(`Job ${jobId} completed successfully`)
+        } catch (error) {
+          console.error(`Job ${jobId} failed:`, error)
+
+          try {
+            await Database.tracking.errorLog.create({
+              data: {
+                id: uuidv4(),
+                error: error instanceof Error ? error.message : 'Unknown error',
+                event: eventName ?? 'Unknown event',
+                eventData: {
+                  ...data,
+                  jobId,
+                  slug,
+                  sessionId,
+                  originalError: error instanceof Error ? error.stack : error
+                },
+                timestamp: new Date()
+              }
+            })
+          } catch (logError) {
+            console.error('Failed to log error to database:', logError)
+          }
+
+          throw error
         }
+      })
 
-        throw error
-      }
-    })
+      // Event listeners
+      trackingQueue.on('completed', (job) => {
+        console.log(`Job ${job.id} completed successfully`)
+      })
 
-    // Event listeners
-    trackingQueue.on('completed', (job) => {
-      console.log(`Job ${job.id} completed successfully`)
-    })
+      trackingQueue.on('failed', (job, error) => {
+        console.error(`Job ${job.id} failed after retries:`, error)
+      })
 
-    trackingQueue.on('failed', (job, error) => {
-      console.error(`Job ${job.id} failed after retries:`, error)
-    })
+      trackingQueue.on('error', (error) => {
+        console.error('Queue error:', error)
+      })
 
-    trackingQueue.on('error', (error) => {
-      console.error('Queue error:', error)
-    })
+      trackingQueue.on('stalled', (jobId) => {
+        console.warn(`Job ${jobId} stalled`)
+      })
 
-    trackingQueue.on('stalled', (jobId) => {
-      console.warn(`Job ${jobId} stalled`)
-    })
+      isInitialized = true
+      console.log('Queue initialized successfully')
+    } catch (error) {
+      console.error('Failed to initialize queue:', error)
+      throw error
+    } finally {
+      initializationPromise = null
+    }
+  })()
 
-    console.log('Queue initialized successfully')
-  } catch (error) {
-    console.error('Failed to initialize queue:', error)
-    throw error
-  }
+  await initializationPromise
 }
 
 // Graceful shutdown
@@ -148,7 +170,7 @@ process.on('SIGINT', async () => {
 // Health check function
 export const getQueueHealth = async () => {
   try {
-    if (!trackingQueue) {
+    if (!trackingQueue || !isInitialized) {
       return {
         status: 'not_initialized',
         error: 'Queue not initialized',
@@ -178,6 +200,10 @@ export const getQueueHealth = async () => {
   }
 }
 
+// Export initialization function and status
+export { initializeQueue, isInitialized }
+
+// Auto-initialize on module load (but don't block)
 initializeQueue().catch(console.error)
 
 export { trackingQueue }
