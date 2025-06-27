@@ -16,6 +16,8 @@ const useBlogTracking = ({ slug }: { slug: string }) => {
   const startTimeRef = useRef<number | null>(null)
   const sessionId = useRef(uuidv4())
   const isTrackingEnabled = useRef(true)
+  const widthClientRef = useRef(typeof window !== 'undefined' ? window.innerWidth : 0)
+  const heightClientRef = useRef(typeof window !== 'undefined' ? window.innerHeight : 0)
 
   const debouncedTrack = useCallback(
     (eventName: EventName, data: PayloadTrackingEventData) => {
@@ -44,7 +46,9 @@ const useBlogTracking = ({ slug }: { slug: string }) => {
 
     debouncedTrack('page_view', {
       url: window.location.href,
-      referrer: document.referrer
+      referrer: document.referrer,
+      width: widthClientRef.current,
+      height: heightClientRef.current
     })
   }, [debouncedTrack])
 
