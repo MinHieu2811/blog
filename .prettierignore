@@ -1,1 +1,3 @@
 /node_modules
+/src/lib/blog-client
+/src/lib/tracking-client
