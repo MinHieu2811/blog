@@ -9,7 +9,7 @@ const Header = () => {
       <div className={`justify-between items-center p-4 max-w-6xl m-auto hidden md:flex `}>
         <div className="logo flex items-center">
           <Link href="/">
-            <span className="mr-5">LOGO</span>
+            <span className="mr-5">Doggo.dev</span>
           </Link>
         </div>
         <div className="search-bar flex-1 flex justify-end">
@@ -38,7 +38,7 @@ const ScrollHeader = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div
-      className={`fixed w-full z-50 transition-all duration-300 bg-transparent ${isScrolled ? ' backdrop-blur-md bg-white/20 top-0' : 'top-[10px] '}`}
+      className={`fixed w-full z-50 transition-all duration-300 bg-transparent ${isScrolled ? ' backdrop-blur-md bg-[#0d0f12]/20 top-0' : 'top-[10px] '}`}
     >
       {children}
     </div>

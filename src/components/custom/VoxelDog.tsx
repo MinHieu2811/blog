@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { useRouter } from 'next/router'
 
 import { loadGLTFModel } from '@/lib/three'
 // import { loadGLTFModel } from '../lib/model'
@@ -16,6 +17,9 @@ type VoxelDogProps = {
 }
 
 const VoxelDog = ({ className = '' }: VoxelDogProps) => {
+  const router = useRouter()
+  const isDetailPage = !!router?.query?.slug
+
   const refContainer = useRef<HTMLDivElement | null>(null)
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef<THREE.WebGLRenderer | null>(null)
@@ -35,6 +39,10 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
   }, [])
 
   useEffect(() => {
+    if (isDetailPage) {
+      return
+    }
+
     const { current: container } = refContainer
 
     if (container) {
@@ -110,7 +118,7 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
         renderer.dispose()
       }
     }
-  }, [])
+  }, [isDetailPage])
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize, false)
@@ -119,6 +127,10 @@ const VoxelDog = ({ className = '' }: VoxelDogProps) => {
       window.removeEventListener('resize', handleWindowResize, false)
     }
   }, [handleWindowResize])
+
+  if (isDetailPage) {
+    return null
+  }
 
   return (
     <div

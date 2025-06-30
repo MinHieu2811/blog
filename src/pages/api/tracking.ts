@@ -22,14 +22,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { data, slug, eventName, sessionId } = req.body
 
-  console.log('📊 Received tracking request:', { eventName, slug, sessionId })
+  console.log('📊 Received tracking request:' + eventName)
 
   if (!eventName || !slug) {
     return res.status(400).json({ message: 'Missing required fields: eventName and slug' })
   }
 
   try {
-    console.log('➕ Adding job to queue:', { eventName, slug, sessionId })
+    console.log('➕ Adding job to queue:' + eventName)
 
     await trackingQueue.add(
       {
