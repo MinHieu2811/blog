@@ -21,7 +21,7 @@ export default function Home({ status, posts, categories = [] }: Props) {
   return (
     <div className="container">
       <div className="flex gap-11">
-        <BlogList className="w-3/4 mt-[-120px] z-10" posts={posts} />
+        <BlogList className="w-3/4 mt-[-50px] z-10" posts={posts} />
         <div className="w-3/12">
           <h1 className="mb-4 text-xl text-pink-800 font-bold">CATEGORIES</h1>
           <div className="flex flex-row flex-wrap gap-2">
