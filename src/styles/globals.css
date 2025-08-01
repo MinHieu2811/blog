@@ -199,7 +199,9 @@ pre.shiki {
   border: 1px solid var(--wh-gray-600);
 }
 
-
+.font-logo {
+  font-family: var(--font-logo);
+}
 
 @layer base {
   * {

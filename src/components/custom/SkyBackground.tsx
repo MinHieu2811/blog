@@ -161,11 +161,11 @@ interface SkyBackgroundProps {
 
 const SkyBackground = (props: SkyBackgroundProps) => {
   const router = useRouter()
-  const isHome = router.pathname === '/'
+  const isHome = router?.pathname === '/'
 
   return (
     <div className={`relative overflow-hidden bg-slate-400 ${props?.className ?? ''}`}>
-      <div className={`${isHome ? 'h-[456px]' : 'h-[256px]'}`}>{isHome && <Sun />}</div>
+      <div className={`${isHome ? 'h-[456px]' : 'h-[156px]'}`}>{isHome && <Sun />}</div>
 
       <div className="upper-sky absolute bottom-[-40px] left-[-120px] w-full z-0">
         {isHome ? (

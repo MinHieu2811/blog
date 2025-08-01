@@ -46,11 +46,6 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
         allGoThrough = index == headingElements?.length - 1 && rect?.top < 0
       })
 
-      // const isNearBottom = window?.innerHeight + window?.scrollY >= document.body.offsetHeight - 10
-      // if (isNearBottom) {
-      //   closestHeading = headingElements[headingElements.length - 1]?.id || null
-      // }
-
       setActiveId(allGoThrough ? headingElements[headingElements.length - 1]?.id : (closestHeading ?? ''))
     }
 
@@ -76,7 +71,7 @@ const TableOfContent = ({ className, headings = [] }: TableOfContentProps) => {
   }
 
   return (
-    <div className={`sticky ${className} right-0 top-24`}>
+    <div className={`sticky ${className} right-0 top-24 hidden lg:block`}>
       <p className="ml-4 mb-2 text-lg font-bold">TABLE OF CONTENT</p>
       <nav className="toc">
         <ul className="toc-item-wrapper">

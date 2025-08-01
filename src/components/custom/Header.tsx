@@ -3,13 +3,15 @@ import Link from 'next/link'
 
 import SeachDrawer from './SeachBlog'
 
+import { fontLogo } from '@/lib/font'
+
 const Header = () => {
   return (
     <ScrollHeader>
       <div className={`justify-between items-center p-4 max-w-6xl m-auto hidden md:flex `}>
         <div className="logo flex items-center">
           <Link href="/">
-            <span className="mr-5">Doggo.dev</span>
+            <span className={`mr-5 ${fontLogo?.variable} font-logo text-3xl font-bold text-[#ffffff]`}>Doggo.dev</span>
           </Link>
         </div>
         <div className="search-bar flex-1 flex justify-end">

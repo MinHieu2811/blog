@@ -1,4 +1,10 @@
-import { Lato as FontMono, M_PLUS_Rounded_1c as FontSans } from 'next/font/google'
+import { Lato as FontMono, M_PLUS_Rounded_1c as FontSans, Knewave as FontLogo } from 'next/font/google'
+
+const fontLogo = FontLogo({
+  subsets: ['latin'],
+  variable: '--font-logo',
+  weight: '400'
+})
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -12,4 +18,4 @@ const fontMono = FontMono({
   weight: ['100', '300', '700', '900', '400', '100', '300', '700', '900']
 })
 
-export { fontMono, fontSans }
+export { fontMono, fontSans, fontLogo }

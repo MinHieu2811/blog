@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Category } from '@prisma/client'
+import Head from 'next/head'
 
 import ErrorPage from './_error'
 
@@ -20,6 +21,12 @@ export default function Home({ status, posts, categories = [] }: Props) {
 
   return (
     <div className="container">
+      <Head>
+        <title>Doggo.dev</title>
+        <meta content="Doggo.dev" name="description" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="/favicon.ico" rel="icon" />
+      </Head>
       <div className="flex gap-11">
         <BlogList className="w-3/4 mt-[-50px] z-10" posts={posts} />
         <div className="w-3/12">

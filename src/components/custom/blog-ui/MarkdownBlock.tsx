@@ -3,6 +3,7 @@ import React from 'react'
 import CodeBlock from './CodeBlock'
 import BlockInfo, { BlockInfoProps } from './BlockInfo'
 import ForwardLink, { ForwardLinkProps } from './ForwardLink'
+import CountExample from './CountExample'
 
 const CustomH1 = (props: object) => <h1 className="text-2xl font-bold text-[#0070f3] my-4" {...props} />
 const CustomH2 = (props: { children: string }) => (
@@ -38,6 +39,8 @@ const CustomForwardLink = (props: ForwardLinkProps) => {
   return <ForwardLink {...props} />
 }
 
+const CustomCountExample = (props: object) => <CountExample {...props} />
+
 export const mdxComponents = {
   h1: CustomH1,
   h2: CustomH2,
@@ -49,5 +52,6 @@ export const mdxComponents = {
   img: CustomImage,
   a: CustomA,
   CustomBlockInfo: CustomBlockInfo,
-  CustomForwardLink: CustomForwardLink
+  CustomForwardLink: CustomForwardLink,
+  CountExample: CustomCountExample
 }
